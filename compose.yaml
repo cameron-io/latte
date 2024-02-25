@@ -1,10 +1,21 @@
+volumes:
+  mariadb-data:
+
 services:
   mariadb:
     image: 'mariadb:latest'
     environment:
-      - 'MARIADB_DATABASE=mydatabase'
-      - 'MARIADB_PASSWORD=secret'
-      - 'MARIADB_ROOT_PASSWORD=verysecret'
-      - 'MARIADB_USER=myuser'
+      - 'MARIADB_DATABASE=${DATABASE_NAME}'
+      - 'MARIADB_ROOT_USER=${DATABASE_ROOT_USER}'
+      - 'MARIADB_ROOT_PASSWORD=${DATABASE_ROOT_PASS}'
+      - 'MARIADB_USER=${DATABASE_USER}'
+      - 'MARIADB_PASSWORD=${DATABASE_PASS}'
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    healthcheck:
+        test: ["CMD", 'mysqladmin', 'ping', '-h', '${DATABASE_HOST}', '-u', '${DATABASE_ROOT_USER}', '-p ${DATABASE_ROOT_PASS}' ]
+        interval: 30s
+        timeout: 5s
+        retries: 5
     ports:
-      - '3306'
+      - "${DATABASE_PORT}:${DATABASE_PORT}"
