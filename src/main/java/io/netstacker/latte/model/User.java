@@ -7,16 +7,15 @@ import java.sql.Date;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "users")
 @Data
-public class Post {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    // TODO: Use Foreign Key to Users DB
-    private String user;
-    private String text;
-    private String name;
+    private String username;
+    private String email;
+    private String password;
     private String avatar;
     private Date created_at = new Date(System.currentTimeMillis());
 }
