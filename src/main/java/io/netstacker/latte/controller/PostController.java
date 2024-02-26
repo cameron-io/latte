@@ -63,7 +63,7 @@ public class PostController {
     public Map<String, Boolean> deletePost(
         @PathVariable(value = "id") long postId
     ) throws ResourceNotFoundException {
-
+        postService.deletePost(postId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
