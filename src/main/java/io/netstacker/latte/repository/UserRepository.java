@@ -10,6 +10,6 @@ import io.netstacker.latte.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-    @Query("SELECT u WHERE User u WHERE u.email = ?1")
+    @Query("SELECT s FROM User s WHERE s.email = ?1")
     Optional<User> findUserByEmail(String email);
 }
