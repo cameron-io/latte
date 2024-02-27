@@ -9,7 +9,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import java.util.Map;
-import static java.util.Map.entry;
 import java.util.Date;
 import java.util.Optional;
 
@@ -46,13 +45,18 @@ public class UserService {
         // Return session token
         Algorithm algorithm = Algorithm.HMAC256(jwt_secret);
 
-        Date ExpiryDate = new Date(System.currentTimeMillis() + 360000);
+        Date ExpiryDate = new Date(System.currentTimeMillis() + 3600000);
         String token = JWT.create()
             .withExpiresAt(ExpiryDate)
+            .withPayload(Map.of(
+                "user", Map.of(
+                    "id", user.getId()
+                )
+            ))
             .sign(algorithm);
 
-        return Map.ofEntries(
-            entry("token", token)
+        return Map.of(
+            "token", token
         );
     }
 }
