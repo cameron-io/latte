@@ -28,9 +28,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Map<String, ?> createUser(User user) throws NullPointerException, ResourceAlreadyExistsException {
-        if (user == null) throw new NullPointerException("Created user cannot be null");
-
+    public Map<String, ?> createUser(User user) throws ResourceAlreadyExistsException {
         Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
 
         if (userOptional.isPresent()) {
