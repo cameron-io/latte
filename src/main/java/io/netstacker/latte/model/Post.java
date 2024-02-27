@@ -20,5 +20,5 @@ public class Post {
     private String text;
     private String name;
     private String avatar;
-    private Date created_at = new Date(System.currentTimeMillis());
+    private final Date created_at = new Date(System.currentTimeMillis());
 }
