@@ -18,14 +18,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Min(6)
-    @Max(10)
+    @Max(64)
     @NotEmpty
     private String username;
     @Email
     @NotEmpty
     private String email;
     @Min(6)
-    @Max(12)
+    @Max(255)
     @NotEmpty
     private String password;
     private String avatar;
