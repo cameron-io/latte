@@ -1,9 +1,6 @@
 package io.netstacker.latte.controller;
 
-import java.util.HashMap;
-
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -61,12 +58,10 @@ public class PostController {
     }
 
     @DeleteMapping("/posts/{id}")
-    public Map<String, Boolean> deletePost(
+    public ResponseEntity<Object> deletePost(
         @PathVariable(value = "id") long postId
     ) throws ResourceNotFoundException {
         postService.deletePost(postId);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+        return ResponseEntity.ok().build();
     }
 }
