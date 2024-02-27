@@ -1,6 +1,7 @@
 package io.netstacker.latte.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ import io.netstacker.latte.repository.UserRepository;
 
 @Service
 public class UserService {
+    @Value("${JWT_SECRET}")
+    private String jwt_secret;
+
     private UserRepository userRepository;
 
     @Autowired
@@ -40,8 +44,7 @@ public class UserService {
         userRepository.save(user);
 
         // Return session token
-
-        Algorithm algorithm = Algorithm.HMAC256(System.getenv("JWT_SECRET"));
+        Algorithm algorithm = Algorithm.HMAC256(jwt_secret);
 
         Date ExpiryDate = new Date(System.currentTimeMillis() + 360000);
         String token = JWT.create()
