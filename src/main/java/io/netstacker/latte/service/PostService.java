@@ -44,9 +44,11 @@ public class PostService {
                 new ResourceNotFoundException("Post not found for this id: " + postId)
             );
 
-        post.setName(postDetails.getName());
-        post.setText(postDetails.getText());
-        post.setAvatar(postDetails.getAvatar());
+        if (post == null) throw new NullPointerException("Post object cannot be null");
+
+        if(postDetails.getName() != null) post.setName(postDetails.getName());
+        if(postDetails.getText() != null) post.setText(postDetails.getText());
+        if(postDetails.getAvatar() != null) post.setAvatar(postDetails.getAvatar());
         
         return postRepository.save(post);
     }
