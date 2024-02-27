@@ -5,7 +5,7 @@ import lombok.Data;
 import java.sql.Date;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "posts")
@@ -16,7 +16,7 @@ public class Post {
     private Long id;
     // TODO: Use Foreign Key to Users DB
     private String user;
-    @NotEmpty
+    @NotBlank
     private String text;
     private String name;
     private String avatar;

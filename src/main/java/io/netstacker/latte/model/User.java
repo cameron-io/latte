@@ -6,9 +6,8 @@ import java.sql.Date;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -17,16 +16,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Min(6)
-    @Max(64)
-    @NotEmpty
+    @Size(min = 6, max = 64)
+    @NotBlank
     private String username;
     @Email
-    @NotEmpty
+    @NotBlank
     private String email;
-    @Min(6)
-    @Max(255)
-    @NotEmpty
+    @Size(min = 6, max = 255)
+    @NotBlank
     private String password;
     private String avatar;
     private Date created_at = new Date(System.currentTimeMillis());
