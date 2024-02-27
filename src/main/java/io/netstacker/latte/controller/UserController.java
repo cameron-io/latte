@@ -1,5 +1,7 @@
 package io.netstacker.latte.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) throws ResourceAlreadyExistsException {
-        userService.createUser(user);
-        return ResponseEntity.ok().body(user);
+    public ResponseEntity<Map<String, ?>> createUser(@Valid @RequestBody User user) throws ResourceAlreadyExistsException {
+        Map<String, ?> response = userService.createUser(user);
+        return ResponseEntity.ok().body(response);
     }
 }
