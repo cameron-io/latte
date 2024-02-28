@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.netstacker.latte.exception.ResourceNotFoundException;
 import io.netstacker.latte.model.Post;
 import io.netstacker.latte.service.PostService;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -43,7 +42,7 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
+    public ResponseEntity<Post> createPost(@RequestBody Post post) {
         postService.createPost(post);
         return ResponseEntity.ok().body(post);
     }
@@ -51,7 +50,7 @@ public class PostController {
     @PutMapping("/posts/{id}")
     public ResponseEntity<Post> updatePost(
         @PathVariable(value = "id") long postId,
-        @Valid @RequestBody Post postDetails
+        @RequestBody Post postDetails
     ) throws ResourceNotFoundException {
         final Post updatedPost = postService.updatePost(postId, postDetails);
         return ResponseEntity.ok().body(updatedPost);

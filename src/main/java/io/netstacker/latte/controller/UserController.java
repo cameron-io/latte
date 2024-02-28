@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.netstacker.latte.exception.ResourceAlreadyExistsException;
 import io.netstacker.latte.model.User;
 import io.netstacker.latte.service.UserService;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -25,8 +24,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, ?>> createUser(@Valid @RequestBody User user) throws ResourceAlreadyExistsException {
-        Map<String, ?> response = userService.createUser(user);
+    public ResponseEntity<Map<String, ?>> createUser(@RequestBody User user) throws ResourceAlreadyExistsException {
+        Map<String, ?> response = userService.registerUser(user);
         return ResponseEntity.ok().body(response);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import io.netstacker.latte.exception.ResourceNotFoundException;
 import io.netstacker.latte.model.Post;
 import io.netstacker.latte.repository.PostRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class PostService {
@@ -30,14 +31,14 @@ public class PostService {
             );
     }
 
-    public void createPost(Post post) throws NullPointerException {
+    public void createPost(@Valid Post post) throws NullPointerException {
         if (post == null) throw new NullPointerException("Created post cannot be null");
         postRepository.save(post);
     }
 
     public Post updatePost(
         long postId,
-        Post postDetails
+        @Valid Post postDetails
     ) throws ResourceNotFoundException {
         Post post = postRepository.findById(postId)
             .orElseThrow(() ->

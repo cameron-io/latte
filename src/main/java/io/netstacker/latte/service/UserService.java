@@ -15,6 +15,7 @@ import java.util.Optional;
 import io.netstacker.latte.exception.ResourceAlreadyExistsException;
 import io.netstacker.latte.model.User;
 import io.netstacker.latte.repository.UserRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class UserService {
@@ -28,7 +29,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Map<String, ?> createUser(User user) throws ResourceAlreadyExistsException {
+    public Map<String, ?> registerUser(@Valid User user) throws ResourceAlreadyExistsException {
         Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
 
         if (userOptional.isPresent()) {
