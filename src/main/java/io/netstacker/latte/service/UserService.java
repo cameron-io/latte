@@ -29,7 +29,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Map<String, ?> registerUser(@Valid User user) throws ResourceAlreadyExistsException {
+    public String registerUser(@Valid User user) throws ResourceAlreadyExistsException {
         Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
 
         if (userOptional.isPresent()) {
@@ -54,8 +54,6 @@ public class UserService {
             ))
             .sign(algorithm);
 
-        return Map.of(
-            "token", token
-        );
+        return token;
     }
 }

@@ -57,7 +57,8 @@ public class PostService {
     }
 
     public void deletePost(long postId) throws ResourceNotFoundException {
-        Post postOptional = postRepository.findById(postId) .orElseThrow(() ->
+        Post postOptional = postRepository.findById(postId)
+            .orElseThrow(() ->
                 new ResourceNotFoundException("Post not found for this id: " + postId)
             );
         if (postOptional != null) {
