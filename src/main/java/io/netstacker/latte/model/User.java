@@ -10,11 +10,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 @Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Long id;
     @Size(min = 6, max = 64)
     @NotBlank
@@ -27,4 +28,7 @@ public class User {
     private String password;
     private String avatar;
     private Date created_at = new Date(System.currentTimeMillis());
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Profile profile;
 }
