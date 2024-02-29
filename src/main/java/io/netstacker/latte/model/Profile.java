@@ -21,7 +21,7 @@ import lombok.Data;
 @Data
 public class Profile {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "profile_id")
     private Long id;
     private String company;
@@ -35,7 +35,6 @@ public class Profile {
     private String githubusername;
     private final Date created_at = new Date(System.currentTimeMillis());
 
-    
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -48,4 +47,10 @@ public class Profile {
     
     @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Social social;
+
+    public Profile() {}
+
+    public Profile(Long id) {
+        this.id = id;
+    }
 }

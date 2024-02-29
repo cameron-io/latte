@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Size;
 @Data
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
     @Size(min = 6, max = 64)
@@ -31,4 +31,10 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Profile profile;
+
+    public User() {}
+
+    public User(Long id) {
+        this.id = id;
+    }
 }

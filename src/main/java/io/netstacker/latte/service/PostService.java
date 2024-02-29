@@ -31,6 +31,8 @@ public class PostService {
             );
     }
 
+    // TODO: Fetch the User ID from the token for protected routes
+
     public void createPost(@Valid Post post) throws NullPointerException {
         if (post == null) throw new NullPointerException("Created post cannot be null");
         postRepository.save(post);

@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class Experience {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
     private String title;

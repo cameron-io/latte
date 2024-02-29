@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class Social {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String youtube;
     private String twitter;
