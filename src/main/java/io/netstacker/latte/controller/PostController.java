@@ -3,7 +3,6 @@ package io.netstacker.latte.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,9 +22,6 @@ import io.netstacker.latte.service.PostService;
 @RestController
 @RequestMapping("/api/v1")
 public class PostController {
-    @Value("${JWT_SECRET}")
-    private String jwt_secret;
-
     private final PostService postService;
 
     @Autowired
@@ -48,7 +44,7 @@ public class PostController {
 
     @PostMapping("/posts")
     public ResponseEntity<Post> createPost(@CookieValue("token") String token, @RequestBody Post post) {
-        Long userId = new TokenValidator(this.jwt_secret).require(token);
+        Long userId = TokenValidator.require(token);
         post.setId(userId);
         postService.createPost(post);
         return ResponseEntity.ok().body(post);
@@ -56,17 +52,21 @@ public class PostController {
 
     @PutMapping("/posts/{id}")
     public ResponseEntity<Post> updatePost(
+        @CookieValue("token") String token,
         @PathVariable(value = "id") long postId,
         @RequestBody Post postDetails
     ) throws ResourceNotFoundException {
+        TokenValidator.require(token);
         final Post updatedPost = postService.updatePost(postId, postDetails);
         return ResponseEntity.ok().body(updatedPost);
     }
 
     @DeleteMapping("/posts/{id}")
     public ResponseEntity<Object> deletePost(
+        @CookieValue("token") String token,
         @PathVariable(value = "id") long postId
     ) throws ResourceNotFoundException {
+        TokenValidator.require(token);
         postService.deletePost(postId);
         return ResponseEntity.ok().build();
     }
