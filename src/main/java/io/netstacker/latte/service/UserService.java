@@ -36,7 +36,7 @@ public class UserService {
             throw new ResourceAlreadyExistsException("User already exists with this email.");
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         user.setPassword(encoder.encode(user.getPassword()));
         
         userRepository.save(user);
