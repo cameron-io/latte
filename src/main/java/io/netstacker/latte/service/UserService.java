@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import io.netstacker.latte.exception.ResourceAlreadyExistsException;
+import io.netstacker.latte.exception.ResourceNotFoundException;
 import io.netstacker.latte.model.User;
 import io.netstacker.latte.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -27,6 +28,14 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public User getUserById(long userId)
+    throws ResourceNotFoundException {
+        return userRepository.findById(userId)
+            .orElseThrow(() ->
+                new ResourceNotFoundException("User not found for this id: " + userId)
+            );
     }
 
     public String registerUser(@Valid User user) throws ResourceAlreadyExistsException {

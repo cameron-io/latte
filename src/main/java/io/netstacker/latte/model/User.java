@@ -29,9 +29,6 @@ public class User {
     private String avatar;
     private Date created_at = new Date(System.currentTimeMillis());
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Profile profile;
-
     public User() {}
 
     public User(Long id) {

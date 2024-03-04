@@ -17,16 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 import io.netstacker.latte.auth.TokenValidator;
 import io.netstacker.latte.exception.ResourceNotFoundException;
 import io.netstacker.latte.model.Post;
+import io.netstacker.latte.model.User;
 import io.netstacker.latte.service.PostService;
+import io.netstacker.latte.service.UserService;
 
 @RestController
 @RequestMapping("/api/v1")
 public class PostController {
+    private final UserService userService;
     private final PostService postService;
 
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, UserService userService) {
         this.postService = postService;
+        this.userService = userService;
     }
 
     @GetMapping("/posts")
@@ -43,9 +47,11 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public ResponseEntity<Post> createPost(@CookieValue("token") String token, @RequestBody Post post) {
+    public ResponseEntity<Post> createPost(@CookieValue("token") String token, @RequestBody Post post) 
+    throws ResourceNotFoundException {
         Long userId = TokenValidator.require(token);
-        post.setId(userId);
+        User user = userService.getUserById(userId);
+        post.setUser(user);
         postService.createPost(post);
         return ResponseEntity.ok().body(post);
     }

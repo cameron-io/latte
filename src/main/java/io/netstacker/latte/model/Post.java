@@ -20,7 +20,7 @@ public class Post {
     private String avatar;
     private final Date created_at = new Date(System.currentTimeMillis());
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }
