@@ -19,6 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
+    @JsonProperty(access = Access.WRITE_ONLY)
     private Long id;
     @Size(min = 6, max = 64)
     @NotBlank
