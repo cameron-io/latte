@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -25,6 +28,7 @@ public class User {
     private String email;
     @Size(min = 6, max = 255)
     @NotBlank
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
     private String avatar;
     private Date created_at = new Date(System.currentTimeMillis());
