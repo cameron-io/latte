@@ -60,8 +60,7 @@ public class BlogService {
                 new ResourceNotFoundException("Blog not found for this id: " + blogId)
             );
         if (blogOptional != null) {
-            Blog blog = blogOptional;
-            blogRepository.delete(blog);
+            blogRepository.delete(blogOptional);
         }
     }
 }
