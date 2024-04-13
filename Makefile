@@ -4,7 +4,7 @@ dev: env
 
 .PHONY: env
 env:
-	sudo docker compose up -d phpmyadmin
+	sudo docker compose up -d mariadb
 
 .PHONY: clean
 clean:
