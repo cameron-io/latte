@@ -15,7 +15,7 @@ import io.netstacker.latte.model.User;
 import io.netstacker.latte.service.UserService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
 
