@@ -47,9 +47,8 @@ public class BlogService {
 
         if (blog == null) throw new NullPointerException("Blog object cannot be null");
 
-        if(blogDetails.getName() != null) blog.setName(blogDetails.getName());
-        if(blogDetails.getText() != null) blog.setText(blogDetails.getText());
-        if(blogDetails.getAvatar() != null) blog.setAvatar(blogDetails.getAvatar());
+        blog.setText(blogDetails.getText());
+        blog.setName(blogDetails.getName());
         
         return blogRepository.save(blog);
     }

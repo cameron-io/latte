@@ -19,8 +19,8 @@ public class Blog {
     private Long id;
     @NotBlank
     private String text;
+    @NotBlank
     private String name;
-    private String avatar;
     private final Date created_at = new Date(System.currentTimeMillis());
 
     @ManyToOne(fetch = FetchType.LAZY)
