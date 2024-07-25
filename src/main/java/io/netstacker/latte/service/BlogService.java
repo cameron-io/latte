@@ -23,8 +23,7 @@ public class BlogService {
         return blogRepository.findAll();
     }
 
-    public Blog getBlogById(long blogId)
-    throws ResourceNotFoundException {
+    public Blog getBlogById(long blogId) throws ResourceNotFoundException {
         return blogRepository.findById(blogId)
             .orElseThrow(() ->
                 new ResourceNotFoundException("Blog not found for this id: " + blogId)

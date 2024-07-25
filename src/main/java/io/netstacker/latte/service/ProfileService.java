@@ -15,16 +15,15 @@ public class ProfileService {
     private ProfileRepository profileRepository;
 
     @Autowired
-    public ProfileService(ProfileRepository ProfileRepository) {
-        profileRepository = ProfileRepository;
+    public ProfileService(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
     }
 
     public List<Profile> getAllProfiles() {
         return profileRepository.findAll();
     }
 
-    public Profile getProfileById(long profileId)
-    throws ResourceNotFoundException {
+    public Profile getProfileById(long profileId) throws ResourceNotFoundException {
         return profileRepository.findById(profileId)
             .orElseThrow(() ->
                 new ResourceNotFoundException("Profile not found for this id: " + profileId)
