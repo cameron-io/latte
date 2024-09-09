@@ -2,7 +2,7 @@ volumes:
   mariadb-data:
 
 services:
-  mariadb:
+  db:
     image: 'mariadb:latest'
     environment:
       - 'MARIADB_DATABASE=${DATABASE_NAME}'
@@ -20,12 +20,12 @@ services:
     ports:
       - "${DATABASE_PORT}:${DATABASE_PORT}"
 
-  phpmyadmin:
+  admin:
     image: phpmyadmin
     restart: always
     environment:
       - PMA_HOST=mariadb
     depends_on:
-      - mariadb
+      - db
     ports:
       - 4000:80

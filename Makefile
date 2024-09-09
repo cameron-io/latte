@@ -4,7 +4,7 @@ dev: env
 
 .PHONY: env
 env:
-	docker compose up -d mariadb
+	docker compose up -d db
 
 .PHONY: clean
 clean:
