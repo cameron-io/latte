@@ -17,14 +17,14 @@ import java.util.Map;
 
 @NoArgsConstructor
 @Component
-public class TokenValidator {
+public class TokenManager {
     @Getter
     private static String jwt_secret;
 
     @Value("${JWT_SECRET}")
     public void setJwtSecret(String js) { jwt_secret = js; }
 
-    public static Long require(String token) {
+    public static Long validateToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256(jwt_secret);
         JWTVerifier verifier = JWT
                 .require(algorithm)
@@ -43,7 +43,7 @@ public class TokenValidator {
         return Long.parseLong(user_id);
     }
 
-    public static String sign(User user) {
+    public static String createToken(User user) {
         Algorithm algorithm = Algorithm.HMAC256(jwt_secret);
 
         Date ExpiryDate = new Date(System.currentTimeMillis() + 3600000);

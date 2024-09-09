@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.netstacker.latte.auth.TokenValidator;
+import io.netstacker.latte.auth.TokenManager;
 import io.netstacker.latte.exception.ResourceNotFoundException;
 import io.netstacker.latte.model.Profile;
 import io.netstacker.latte.model.User;
@@ -53,7 +53,7 @@ public class ProfileController {
         @CookieValue("token") String token,
         @RequestBody Profile profile
     ) throws ResourceNotFoundException {
-        Long userId = TokenValidator.require(token);
+        Long userId = TokenManager.validateToken(token);
         User user = userService.getUserById(userId);
         profile.setUser(user);
         profileService.createProfile(profile);

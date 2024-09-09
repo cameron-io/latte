@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import io.netstacker.latte.auth.TokenValidator;
+import io.netstacker.latte.auth.TokenManager;
 import io.netstacker.latte.exception.ResourceNotFoundException;
 import io.netstacker.latte.model.Blog;
 import io.netstacker.latte.model.User;
@@ -44,7 +44,7 @@ public class BlogController {
         @CookieValue("token") String token,
         @RequestBody Blog blog
     ) throws ResourceNotFoundException {
-        Long userId = TokenValidator.require(token);
+        Long userId = TokenManager.validateToken(token);
         User user = userService.getUserById(userId);
         blog.setUser(user);
         blogService.createBlog(blog);
@@ -57,7 +57,7 @@ public class BlogController {
         @PathVariable(value = "id") long blogId,
         @RequestBody Blog blogDetails
     ) throws ResourceNotFoundException {
-        TokenValidator.require(token);
+        TokenManager.validateToken(token);
         final Blog updatedBlog = blogService.updateBlog(blogId, blogDetails);
         return ResponseEntity.ok().body(updatedBlog);
     }
@@ -67,7 +67,7 @@ public class BlogController {
         @CookieValue("token") String token,
         @PathVariable(value = "id") long blogId
     ) throws ResourceNotFoundException {
-        TokenValidator.require(token);
+        TokenManager.validateToken(token);
         blogService.deleteBlog(blogId);
         return ResponseEntity.ok().build();
     }

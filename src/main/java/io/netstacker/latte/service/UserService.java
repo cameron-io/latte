@@ -1,6 +1,6 @@
 package io.netstacker.latte.service;
 
-import io.netstacker.latte.auth.TokenValidator;
+import io.netstacker.latte.auth.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,6 +42,6 @@ public class UserService {
         userRepository.save(user);
 
         // Return session token
-        return TokenValidator.sign(user);
+        return TokenManager.createToken(user);
     }
 }
