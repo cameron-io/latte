@@ -50,7 +50,7 @@ public class BlogController {
     public ResponseEntity<Blog> updateBlog(
         @PathVariable(value = "id") long blogId,
         @RequestBody Blog blogDetails) throws ResourceNotFoundException {
-        final var updatedBlog = blogService.updateBlog(blogId, blogDetails);
+        var updatedBlog = blogService.updateBlog(blogId, blogDetails);
         return ResponseEntity.ok().body(updatedBlog);
     }
 
