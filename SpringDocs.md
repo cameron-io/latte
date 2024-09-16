@@ -23,9 +23,5 @@ The following guides illustrate how to use some features concretely:
 
 ### Docker Compose support
 This project contains a Docker Compose file named `compose.yaml`.
-In this file, the following services have been defined:
-
-* mariadb: [`mariadb:latest`](https://hub.docker.com/_/mariadb)
 
 Please review the tags of the used images and set them to the same as you're running in production.
-

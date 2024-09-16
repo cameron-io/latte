@@ -12,7 +12,7 @@
 	<artifactId>latte</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>latte</name>
-	<description>Spring Boot MariaDB Web Application</description>
+	<description>Spring Boot Web API</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -48,10 +48,9 @@
             <version>4.4.0</version>
         </dependency>
 		<dependency>
-			<groupId>org.mariadb.jdbc</groupId>
-			<artifactId>mariadb-java-client</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
