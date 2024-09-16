@@ -1,4 +1,4 @@
-package io.netstacker.latte.Config;
+package io.netstacker.latte.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
