@@ -27,8 +27,8 @@ public class AuthInterceptor implements HandlerInterceptor {
         var cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if (cookie.getName() == "token") {
-                Long userId = tokenService.validateToken(cookie.getValue());
-                request.setAttribute("userId", userId);
+                Long accountId = tokenService.validateToken(cookie.getValue());
+                request.setAttribute("accountId", accountId);
                 return true;
             }
         }

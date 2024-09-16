@@ -1,5 +1,6 @@
 package io.netstacker.latte.domain.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import lombok.Data;
 public class Social {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "social_id")
     private Long id;
     private String youtube;
     private String twitter;

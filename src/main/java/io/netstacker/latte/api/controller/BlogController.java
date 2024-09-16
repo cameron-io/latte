@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.*;
 
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.services.IBlogService;
-import io.netstacker.latte.domain.services.IUserService;
+import io.netstacker.latte.domain.services.IAccountService;
 import io.netstacker.latte.domain.models.Blog;
 
 @RestController
 @RequestMapping("/api/blogs")
 public class BlogController {
-    private final IUserService userService;
+    private final IAccountService accountService;
     private final IBlogService blogService;
 
     @Autowired
-    public BlogController(IBlogService blogService, IUserService userService) {
+    public BlogController(IBlogService blogService, IAccountService accountService) {
         this.blogService = blogService;
-        this.userService = userService;
+        this.accountService = accountService;
     }
 
     @GetMapping("/")
@@ -38,10 +38,10 @@ public class BlogController {
 
     @PostMapping("/")
     public ResponseEntity<Blog> createBlog(
-        @RequestAttribute("userId") Long userId,
+        @RequestAttribute("accountId") Long accountId,
         @RequestBody Blog blog) throws ResourceNotFoundException {
-        var user = userService.getUserById(userId);
-        blog.setUser(user);
+        var account = accountService.getAccountById(accountId);
+        blog.setAccount(account);
         blogService.createBlog(blog);
         return ResponseEntity.ok().body(blog);
     }

@@ -33,16 +33,19 @@ public class Profile {
     private final Date created_at = new Date(System.currentTimeMillis());
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "experience_id")
     private Experience experience;
     
     @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "education_id")
     private Education education;
     
     @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "social_id")
     private Social social;
 
     public Profile() {}

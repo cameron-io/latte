@@ -2,6 +2,7 @@ package io.netstacker.latte.domain.models;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,12 +19,13 @@ import lombok.Data;
 public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "education_id")
     private Long id;
     private String school;
     private String degree;
     private String field_of_study;
-    private Date from;
-    private Date to;
+    private Date from_date;
+    private Date to_date;
     private Boolean current = false;
     private String description;
 

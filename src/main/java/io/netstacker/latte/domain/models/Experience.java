@@ -1,5 +1,8 @@
 package io.netstacker.latte.domain.models;
 
+import java.sql.Date;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,12 +19,13 @@ import lombok.Data;
 public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "experience_id")
     private Long id;
     private String title;
     private String company;
     private String location;
-    private String from;
-    private String to;
+    private Date from_date;
+    private Date to_date;
     private Boolean current = false;
     private String description;
     

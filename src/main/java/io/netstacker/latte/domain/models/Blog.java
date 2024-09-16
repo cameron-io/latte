@@ -12,12 +12,13 @@ import jakarta.persistence.*;
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "blog_id")
     private Long id;
     private String text;
     private String name;
     private final Date created_at = new Date(System.currentTimeMillis());
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "account_id")
+    private Account account;
 }

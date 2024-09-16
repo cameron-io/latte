@@ -2,7 +2,7 @@ package io.netstacker.latte.application.dtos.profile;
 
 import java.util.List;
 
-import io.netstacker.latte.application.dtos.user.UserDto;
+import io.netstacker.latte.application.dtos.account.AccountDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -21,5 +21,5 @@ public class ProfileDto {
     private List<ExperienceDto> experience;
     private List<EducationDto> education;
     private List<SocialDto> social;
-    private UserDto user;
+    private AccountDto account;
 }

@@ -8,7 +8,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 
-import io.netstacker.latte.domain.models.User;
+import io.netstacker.latte.domain.models.Account;
 import io.netstacker.latte.domain.services.ITokenService;
 import lombok.Getter;
 
@@ -27,27 +27,27 @@ public class TokenService implements ITokenService {
                 // reusable verifier instance
                 .build();
 
-        Claim user = verifier
+        Claim account = verifier
                 .verify(token)
-                .getClaim("user");
+                .getClaim("account");
 
-        String user_id = user
+        String account_id = account
                 .asMap()
                 .get("id")
                 .toString();
 
-        return Long.parseLong(user_id);
+        return Long.parseLong(account_id);
     }
 
-    public String createToken(User user) {
+    public String createToken(Account account) {
         Algorithm algorithm = Algorithm.HMAC256(jwt_secret);
 
         Date ExpiryDate = new Date(System.currentTimeMillis() + 3600000);
         return JWT.create()
                 .withExpiresAt(ExpiryDate)
                 .withPayload(Map.of(
-                        "user", Map.of(
-                                "id", user.getId()
+                        "account", Map.of(
+                                "id", account.getId()
                         )
                 ))
                 .sign(algorithm);

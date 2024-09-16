@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.*;
 
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.application.services.ProfileService;
-import io.netstacker.latte.domain.services.IUserService;
+import io.netstacker.latte.domain.services.IAccountService;
 import io.netstacker.latte.domain.models.Profile;
 
 @RestController
 @RequestMapping("/api/profiles")
 public class ProfileController {
     private final ProfileService profileService;
-    private final IUserService userService;
+    private final IAccountService accountService;
 
     @Autowired
     public ProfileController(
         ProfileService profileService,
-        IUserService userService) {
+        IAccountService accountService) {
         this.profileService = profileService;
-        this.userService = userService;
+        this.accountService = accountService;
     }
 
     @GetMapping("/")
@@ -40,10 +40,10 @@ public class ProfileController {
 
     @PostMapping("/")
     public ResponseEntity<Profile> createProfile(
-        @RequestAttribute("userId") Long userId,
+        @RequestAttribute("accountId") Long accountId,
         @RequestBody Profile profile) throws ResourceNotFoundException {
-        var user = userService.getUserById(userId);
-        profile.setUser(user);
+        var account = accountService.getAccountById(accountId);
+        profile.setAccount(account);
         profileService.createProfile(profile);
         return ResponseEntity.ok().body(profile);
     }

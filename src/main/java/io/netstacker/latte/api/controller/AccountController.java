@@ -9,42 +9,42 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import io.netstacker.latte.application.dtos.user.LoginDto;
-import io.netstacker.latte.application.dtos.user.RegisterDto;
+import io.netstacker.latte.application.dtos.account.LoginDto;
+import io.netstacker.latte.application.dtos.account.RegisterDto;
 import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
 import io.netstacker.latte.domain.services.ITokenService;
-import io.netstacker.latte.domain.services.IUserService;
+import io.netstacker.latte.domain.services.IAccountService;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
-    private final IUserService userService;
+@RequestMapping("/api/accounts")
+public class AccountController {
+    private final IAccountService accountService;
     private final ITokenService tokenService;
     private final String cookieConfig = "Path=/; HttpOnly; SameSite=strict;";
 
     @Autowired
-    public UserController(IUserService userService, ITokenService tokenService) {
-        this.userService = userService;
+    public AccountController(IAccountService accountService, ITokenService tokenService) {
+        this.accountService = accountService;
         this.tokenService = tokenService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, ?>> loginUser(
+    public ResponseEntity<Map<String, ?>> loginAccount(
         @RequestBody LoginDto loginDto,
         HttpServletResponse response) throws BadRequestException {
-        var user = userService.loginUser(loginDto);
-        var token = tokenService.createToken(user);
+        var account = accountService.loginAccount(loginDto);
+        var token = tokenService.createToken(account);
         var cookie = new Cookie("token", token + "; " + cookieConfig);
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, ?>> registerUser(
+    public ResponseEntity<Map<String, ?>> registerAccount(
         @RequestBody RegisterDto registerDto,
         HttpServletResponse response) throws ResourceAlreadyExistsException {
-        var user = userService.registerUser(registerDto);
-        var token = tokenService.createToken(user);
+        var account = accountService.registerAccount(registerDto);
+        var token = tokenService.createToken(account);
         var cookie = new Cookie("token", token + "; " + cookieConfig);
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
