@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import io.netstacker.latte.auth.TokenManager;
 import io.netstacker.latte.exception.ResourceNotFoundException;
 import io.netstacker.latte.model.Blog;
-import io.netstacker.latte.model.User;
 import io.netstacker.latte.service.BlogService;
 import io.netstacker.latte.service.UserService;
 
@@ -27,25 +25,22 @@ public class BlogController {
 
     @GetMapping("/")
     public ResponseEntity<List<Blog>> getAllBlogs() {
-        List<Blog> blogs = blogService.getAllBlogs();
+        var blogs = blogService.getAllBlogs();
         return ResponseEntity.ok().body(blogs);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Blog> getBlogById(
-        @PathVariable(value = "id") long blogId
-    ) throws ResourceNotFoundException {
-        Blog blog = blogService.getBlogById(blogId);
+        @PathVariable(value = "id") long blogId) throws ResourceNotFoundException {
+        var blog = blogService.getBlogById(blogId);
         return ResponseEntity.ok().body(blog);
     }
 
     @PostMapping("/")
     public ResponseEntity<Blog> createBlog(
-        @CookieValue("token") String token,
-        @RequestBody Blog blog
-    ) throws ResourceNotFoundException {
-        Long userId = TokenManager.validateToken(token);
-        User user = userService.getUserById(userId);
+        @RequestAttribute("userId") Long userId,
+        @RequestBody Blog blog) throws ResourceNotFoundException {
+        var user = userService.getUserById(userId);
         blog.setUser(user);
         blogService.createBlog(blog);
         return ResponseEntity.ok().body(blog);
@@ -53,21 +48,15 @@ public class BlogController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Blog> updateBlog(
-        @CookieValue("token") String token,
         @PathVariable(value = "id") long blogId,
-        @RequestBody Blog blogDetails
-    ) throws ResourceNotFoundException {
-        TokenManager.validateToken(token);
-        final Blog updatedBlog = blogService.updateBlog(blogId, blogDetails);
+        @RequestBody Blog blogDetails) throws ResourceNotFoundException {
+        final var updatedBlog = blogService.updateBlog(blogId, blogDetails);
         return ResponseEntity.ok().body(updatedBlog);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteBlog(
-        @CookieValue("token") String token,
-        @PathVariable(value = "id") long blogId
-    ) throws ResourceNotFoundException {
-        TokenManager.validateToken(token);
+        @PathVariable(value = "id") long blogId) throws ResourceNotFoundException {
         blogService.deleteBlog(blogId);
         return ResponseEntity.ok().build();
     }

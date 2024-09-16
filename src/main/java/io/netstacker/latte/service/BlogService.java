@@ -39,7 +39,7 @@ public class BlogService {
         long blogId,
         @Valid Blog blogDetails
     ) throws ResourceNotFoundException {
-        Blog blog = blogRepository.findById(blogId)
+        var blog = blogRepository.findById(blogId)
             .orElseThrow(() ->
                 new ResourceNotFoundException("Blog not found for this id: " + blogId)
             );
@@ -53,7 +53,7 @@ public class BlogService {
     }
 
     public void deleteBlog(long blogId) throws ResourceNotFoundException {
-        Blog blogOptional = blogRepository.findById(blogId)
+        var blogOptional = blogRepository.findById(blogId)
             .orElseThrow(() ->
                 new ResourceNotFoundException("Blog not found for this id: " + blogId)
             );

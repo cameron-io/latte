@@ -1,17 +1,15 @@
 package io.netstacker.latte.service;
 
-import io.netstacker.latte.auth.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import jakarta.validation.Valid;
 
-import java.util.Optional;
-
+import io.netstacker.latte.auth.TokenManager;
 import io.netstacker.latte.exception.ResourceAlreadyExistsException;
 import io.netstacker.latte.exception.ResourceNotFoundException;
 import io.netstacker.latte.model.User;
 import io.netstacker.latte.repository.UserRepository;
-import jakarta.validation.Valid;
 
 @Service
 public class UserService {
@@ -30,7 +28,7 @@ public class UserService {
     }
 
     public String registerUser(@Valid User user) throws ResourceAlreadyExistsException {
-        Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
+        var userOptional = userRepository.findUserByEmail(user.getEmail());
 
         if (userOptional.isPresent()) {
             throw new ResourceAlreadyExistsException("User already exists with this email.");
