@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -23,7 +22,6 @@ public class Education {
     private String school;
     private String degree;
     private String field_of_study;
-    @NotBlank
     private Date from;
     private Date to;
     private Boolean current = false;

@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 public interface IUserService {
     public User getUserById(long userId) throws ResourceNotFoundException;
 
-    public String loginUser(@Valid LoginDto loginDto) throws BadRequestException;
+    public User loginUser(@Valid LoginDto loginDto) throws BadRequestException;
 
-    public String registerUser(@Valid RegisterDto registerDto) throws ResourceAlreadyExistsException;
+    public User registerUser(@Valid RegisterDto registerDto) throws ResourceAlreadyExistsException;
 }

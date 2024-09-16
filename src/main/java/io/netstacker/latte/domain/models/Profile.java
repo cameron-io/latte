@@ -13,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -27,9 +26,7 @@ public class Profile {
     private String company;
     private String website;
     private String location;
-    @NotBlank
     private String status;
-    @NotBlank
     private ArrayList<String> skills;
     private String bio;
     private String githubusername;
