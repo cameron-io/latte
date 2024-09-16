@@ -1,7 +1,7 @@
-package io.netstacker.latte.application.extensions;
+package io.netstacker.latte.application.services;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -9,22 +9,18 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 
 import io.netstacker.latte.domain.models.User;
+import io.netstacker.latte.domain.services.ITokenService;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.Map;
 
-@NoArgsConstructor
-@Component
-public class TokenManager {
+@Service
+public class TokenService implements ITokenService {
     @Getter
     private static String jwt_secret;
 
-    @Value("${JWT_SECRET}")
-    public void setJwtSecret(String js) { jwt_secret = js; }
-
-    public static Long validateToken(String token) {
+    public Long validateToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256(jwt_secret);
         JWTVerifier verifier = JWT
                 .require(algorithm)
@@ -43,7 +39,7 @@ public class TokenManager {
         return Long.parseLong(user_id);
     }
 
-    public static String createToken(User user) {
+    public String createToken(User user) {
         Algorithm algorithm = Algorithm.HMAC256(jwt_secret);
 
         Date ExpiryDate = new Date(System.currentTimeMillis() + 3600000);
@@ -56,4 +52,7 @@ public class TokenManager {
                 ))
                 .sign(algorithm);
     }
+    
+    @Value("${JWT_SECRET}")
+    private void setJwtSecret(String js) { jwt_secret = js; }
 }

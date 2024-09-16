@@ -12,24 +12,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import io.netstacker.latte.application.dtos.user.LoginDto;
 import io.netstacker.latte.application.dtos.user.RegisterDto;
 import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
+import io.netstacker.latte.domain.services.ITokenService;
 import io.netstacker.latte.domain.services.IUserService;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
     private final IUserService userService;
+    private final ITokenService tokenService;
     private final String cookieConfig = "Path=/; HttpOnly; SameSite=strict;";
 
     @Autowired
-    public UserController(IUserService userService) {
+    public UserController(IUserService userService, ITokenService tokenService) {
         this.userService = userService;
+        this.tokenService = tokenService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, ?>> loginUser(
-        @RequestBody LoginDto user,
+        @RequestBody LoginDto loginDto,
         HttpServletResponse response) throws BadRequestException {
-        var token = userService.loginUser(user);
+        var user = userService.loginUser(loginDto);
+        var token = tokenService.createToken(user);
         var cookie = new Cookie("token", token + "; " + cookieConfig);
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
@@ -37,9 +41,10 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, ?>> registerUser(
-        @RequestBody RegisterDto user,
+        @RequestBody RegisterDto registerDto,
         HttpServletResponse response) throws ResourceAlreadyExistsException {
-        var token = userService.registerUser(user);
+        var user = userService.registerUser(registerDto);
+        var token = tokenService.createToken(user);
         var cookie = new Cookie("token", token + "; " + cookieConfig);
         response.addCookie(cookie);
         return ResponseEntity.ok().build();

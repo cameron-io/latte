@@ -9,7 +9,6 @@ import io.netstacker.latte.application.dtos.user.LoginDto;
 import io.netstacker.latte.application.dtos.user.RegisterDto;
 import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
-import io.netstacker.latte.application.extensions.TokenManager;
 import io.netstacker.latte.domain.models.User;
 import io.netstacker.latte.domain.repositories.IUserRepository;
 import io.netstacker.latte.domain.services.IUserService;
@@ -31,7 +30,7 @@ public class UserService implements IUserService {
             );
     }
 
-    public String loginUser(@Valid LoginDto loginDto) throws BadRequestException {
+    public User loginUser(@Valid LoginDto loginDto) throws BadRequestException {
         var user = userRepository.findUserByEmail(loginDto.getEmail()).orElse(null);
         if (user == null) {
             throw new BadRequestException("User does not exist with this email.");
@@ -42,11 +41,10 @@ public class UserService implements IUserService {
         if(encodedPassword != user.getPassword()) {
             throw new BadRequestException("Invalid password.");
         }
-        
-        return TokenManager.createToken(user);
+        return user;
     }
 
-    public String registerUser(@Valid RegisterDto registerDto) throws ResourceAlreadyExistsException {
+    public User registerUser(@Valid RegisterDto registerDto) throws ResourceAlreadyExistsException {
         var user = userRepository.findUserByEmail(registerDto.getEmail()).orElse(null);
         if (user == null) {
             throw new ResourceAlreadyExistsException("User already exists with this email.");
@@ -57,6 +55,6 @@ public class UserService implements IUserService {
 
         userRepository.save(user);
 
-        return TokenManager.createToken(user);
+        return user;
     }
 }

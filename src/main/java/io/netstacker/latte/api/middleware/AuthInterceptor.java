@@ -1,16 +1,23 @@
 package io.netstacker.latte.api.middleware;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import io.netstacker.latte.application.extensions.TokenManager;
+import io.netstacker.latte.domain.services.ITokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Cookie;
 
 public class AuthInterceptor implements HandlerInterceptor {
+    private final ITokenService tokenService;
+
+    @Autowired
+    public AuthInterceptor(ITokenService tokenService) {
+        this.tokenService = tokenService;
+    }
 
     @Override
     public boolean preHandle(
@@ -20,7 +27,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         var cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if (cookie.getName() == "token") {
-                Long userId = TokenManager.validateToken(cookie.getValue());
+                Long userId = tokenService.validateToken(cookie.getValue());
                 request.setAttribute("userId", userId);
                 return true;
             }

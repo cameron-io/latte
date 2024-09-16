@@ -6,13 +6,16 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import io.netstacker.latte.api.middleware.AuthInterceptor;
+import io.netstacker.latte.application.services.TokenService;
+import io.netstacker.latte.domain.services.ITokenService;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthInterceptor())
+        ITokenService tokenService = new TokenService();
+        registry.addInterceptor(new AuthInterceptor(tokenService))
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/login")
                 .excludePathPatterns("/api/register");
