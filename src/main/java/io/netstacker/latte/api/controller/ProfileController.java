@@ -38,6 +38,13 @@ public class ProfileController {
         return ResponseEntity.ok().body(profile);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<Profile> getMe(
+        @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException {
+        var profile = profileService.getProfileByAccountId(accountId);
+        return ResponseEntity.ok().body(profile);
+    }
+
     @PostMapping("/")
     public ResponseEntity<Profile> createProfile(
         @RequestAttribute("accountId") Long accountId,

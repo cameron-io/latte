@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
+import io.netstacker.latte.application.specifications.ProfileSpecifications;
 import io.netstacker.latte.domain.models.Profile;
 import io.netstacker.latte.domain.repositories.IProfileRepository;
 import jakarta.validation.Valid;
@@ -28,6 +29,13 @@ public class ProfileService {
             .orElseThrow(() ->
                 new ResourceNotFoundException("Profile not found for this id: " + profileId)
             );
+    }
+
+    public Profile getProfileByAccountId(long accountId) throws ResourceNotFoundException {
+        var spec = ProfileSpecifications.ProfileByAccountId(accountId);
+        return profileRepository.findOne(spec).orElseThrow(() ->
+            new ResourceNotFoundException("Profile not found for this account")
+        );
     }
 
     public void createProfile(@Valid Profile profile) throws NullPointerException {
