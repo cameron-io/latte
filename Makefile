@@ -4,6 +4,7 @@ dev: env
 
 .PHONY: env
 env:
+	cp .env.template .env
 	docker compose up -d db
 
 .PHONY: clean
