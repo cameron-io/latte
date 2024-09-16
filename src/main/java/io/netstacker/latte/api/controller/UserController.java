@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import io.netstacker.latte.application.dto.LoginDto;
-import io.netstacker.latte.application.dto.RegisterDto;
+import io.netstacker.latte.application.dtos.LoginDto;
+import io.netstacker.latte.application.dtos.RegisterDto;
 import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
 import io.netstacker.latte.domain.services.IUserService;
 

@@ -1,4 +1,4 @@
-package io.netstacker.latte.application.dto;
+package io.netstacker.latte.application.dtos;
 
 import org.springframework.lang.NonNull;
 

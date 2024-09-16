@@ -2,8 +2,8 @@ package io.netstacker.latte.domain.services;
 
 import org.apache.coyote.BadRequestException;
 
-import io.netstacker.latte.application.dto.LoginDto;
-import io.netstacker.latte.application.dto.RegisterDto;
+import io.netstacker.latte.application.dtos.LoginDto;
+import io.netstacker.latte.application.dtos.RegisterDto;
 import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.User;
