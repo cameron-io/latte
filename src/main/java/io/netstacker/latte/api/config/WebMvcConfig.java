@@ -17,7 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         ITokenService tokenService = new TokenService();
         registry.addInterceptor(new AuthInterceptor(tokenService))
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/login")
-                .excludePathPatterns("/api/register");
+                .excludePathPatterns("/api/users/login")
+                .excludePathPatterns("/api/users/register");
     }
 }
