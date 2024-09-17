@@ -8,16 +8,21 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
 public class RegisterDto {
+    @NonNull
+    @NotBlank
     @Size(min = 6, max = 64)
-    @NotBlank
     private String name;
-    @Email
+    @NonNull
     @NotBlank
+    @Email
     private String email;
-    @Size(min = 6, max = 255)
+    @NonNull
     @NotBlank
     @JsonProperty(access = Access.WRITE_ONLY)
     @Pattern(
