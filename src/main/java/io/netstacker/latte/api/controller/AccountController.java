@@ -43,7 +43,7 @@ public class AccountController {
         HttpServletResponse response) throws BadRequestException {
         var account = accountService.loginAccount(loginDto);
         var token = tokenService.createToken(account);
-        var cookie = new Cookie("token", token + "; " + cookieConfig);
+        var cookie = new Cookie("token", tokenCookie(token));
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }
@@ -54,8 +54,12 @@ public class AccountController {
         HttpServletResponse response) throws ResourceAlreadyExistsException {
         var account = accountService.registerAccount(registerDto);
         var token = tokenService.createToken(account);
-        var cookie = new Cookie("token", token + "; " + cookieConfig);
+        var cookie = new Cookie("token", tokenCookie(token));
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
+    }
+
+    private String tokenCookie(String token) {
+        return token + "; " + cookieConfig;
     }
 }

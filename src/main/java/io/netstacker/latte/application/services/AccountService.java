@@ -1,6 +1,7 @@
 package io.netstacker.latte.application.services;
 
 import org.apache.coyote.BadRequestException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -46,15 +47,18 @@ public class AccountService implements IAccountService {
 
     public Account registerAccount(@Valid RegisterDto registerDto) throws ResourceAlreadyExistsException {
         var account = accountRepository.findAccountByEmail(registerDto.getEmail()).orElse(null);
-        if (account == null) {
+        if (account != null) {
             throw new ResourceAlreadyExistsException("Account already exists with this email.");
         }
 
+        ModelMapper modelMapper = new ModelMapper();
+        var newAccount = modelMapper.map(registerDto, Account.class);
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(encodeStrength);
-        account.setPassword(encoder.encode(account.getPassword()));
+        newAccount.setPassword(encoder.encode(newAccount.getPassword()));
 
-        accountRepository.save(account);
+        accountRepository.save(newAccount);
 
-        return account;
+        return newAccount;
     }
 }

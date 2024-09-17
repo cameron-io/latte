@@ -25,6 +25,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         @NonNull HttpServletResponse response,
         @NonNull Object handler) throws Exception {
         var cookies = request.getCookies();
+        if (cookies == null) return true;
         for (Cookie cookie : cookies) {
             if (cookie.getName() == "token") {
                 Long accountId = tokenService.validateToken(cookie.getValue());
