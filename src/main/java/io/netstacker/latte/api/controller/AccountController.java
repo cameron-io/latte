@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import io.netstacker.latte.application.dtos.account.LoginDto;
 import io.netstacker.latte.application.dtos.account.RegisterDto;
 import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
+import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.services.ITokenService;
+import io.netstacker.latte.domain.models.Account;
 import io.netstacker.latte.domain.services.IAccountService;
 
 @RestController
@@ -26,6 +28,13 @@ public class AccountController {
     public AccountController(IAccountService accountService, ITokenService tokenService) {
         this.accountService = accountService;
         this.tokenService = tokenService;
+    }
+    
+    @PostMapping("/info")
+    public ResponseEntity<Account> getCurrentUser(
+        @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException {
+        var account = accountService.getAccountById(accountId);
+        return ResponseEntity.ok().body(account);
     }
 
     @PostMapping("/login")
