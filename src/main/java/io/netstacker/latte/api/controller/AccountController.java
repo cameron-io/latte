@@ -22,7 +22,6 @@ import io.netstacker.latte.domain.services.IAccountService;
 public class AccountController {
     private final IAccountService accountService;
     private final ITokenService tokenService;
-    private final String cookieConfig = "Path=/; HttpOnly; SameSite=strict;";
 
     @Autowired
     public AccountController(IAccountService accountService, ITokenService tokenService) {
@@ -43,7 +42,7 @@ public class AccountController {
         HttpServletResponse response) throws BadRequestException {
         var account = accountService.loginAccount(loginDto);
         var token = tokenService.createToken(account);
-        var cookie = new Cookie("token", tokenCookie(token));
+        var cookie = tokenCookie(token);
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }
@@ -54,12 +53,16 @@ public class AccountController {
         HttpServletResponse response) throws ResourceAlreadyExistsException {
         var account = accountService.registerAccount(registerDto);
         var token = tokenService.createToken(account);
-        var cookie = new Cookie("token", tokenCookie(token));
+        var cookie = tokenCookie(token);
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }
 
-    private String tokenCookie(String token) {
-        return token + "; " + cookieConfig;
+    private Cookie tokenCookie(String token) {
+        var cookie = new Cookie("token", token);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(60*60*3);
+        return cookie;
     }
 }
