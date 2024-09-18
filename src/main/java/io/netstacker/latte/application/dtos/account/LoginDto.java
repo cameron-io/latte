@@ -2,12 +2,11 @@ package io.netstacker.latte.application.dtos.account;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class LoginDto {
-    @NonNull @NotBlank private String email;
-    @NonNull @NotBlank private String password;
+    @NotBlank private String email;
+    @NotBlank private String password;
 }

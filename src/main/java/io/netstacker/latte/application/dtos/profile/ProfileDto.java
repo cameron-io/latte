@@ -6,8 +6,10 @@ import io.netstacker.latte.application.dtos.account.AccountDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class ProfileDto {
     private Long id;
     @NotBlank private String status;

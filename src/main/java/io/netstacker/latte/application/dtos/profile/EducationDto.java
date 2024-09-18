@@ -2,8 +2,10 @@ package io.netstacker.latte.application.dtos.profile;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class EducationDto {
     private Long id;
     @NotBlank private String school;

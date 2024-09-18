@@ -1,7 +1,11 @@
 package io.netstacker.latte.application.dtos.profile;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class ExperienceDto {
     public Long id;
     @NotBlank public String title;

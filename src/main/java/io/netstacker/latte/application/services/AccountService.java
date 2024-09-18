@@ -51,8 +51,7 @@ public class AccountService implements IAccountService {
             throw new ResourceAlreadyExistsException("Account already exists with this email.");
         }
 
-        ModelMapper modelMapper = new ModelMapper();
-        var newAccount = modelMapper.map(registerDto, Account.class);
+        var newAccount = new ModelMapper().map(registerDto, Account.class);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(encodeStrength);
         newAccount.setPassword(encoder.encode(newAccount.getPassword()));
