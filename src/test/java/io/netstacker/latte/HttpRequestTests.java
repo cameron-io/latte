@@ -22,9 +22,13 @@ class HttpRequestTests {
 
 	@Test
 	void registerSuccessTest() throws Exception {
+        var payload = new RegisterDto();
+        payload.setName("AdminTester");
+        payload.setEmail("admin@mail.com");
+        payload.setPassword("Pa$$w0rd!");
         this.restTemplate.postForEntity(
             baseUri,
-            new RegisterDto("AdminTester", "admin@mail.com", "superPassw0rd!"),
+            payload,
             null);
 	}
 }
