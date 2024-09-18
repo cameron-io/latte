@@ -3,12 +3,15 @@ package io.netstacker.latte.api.controller;
 import java.util.Map;
 
 import org.apache.coyote.BadRequestException;
+import org.modelmapper.ModelMapper;
+
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import io.netstacker.latte.application.dtos.account.AccountDto;
 import io.netstacker.latte.application.dtos.account.LoginDto;
 import io.netstacker.latte.application.dtos.account.RegisterDto;
 import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
@@ -42,27 +45,44 @@ public class AccountController {
         HttpServletResponse response) throws BadRequestException {
         var account = accountService.loginAccount(loginDto);
         var token = tokenService.createToken(account);
-        var cookie = tokenCookie(token);
+        var cookie = createLoginCookie(token);
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, ?>> registerAccount(
+    public ResponseEntity<AccountDto> registerAccount(
         @RequestBody RegisterDto registerDto,
         HttpServletResponse response) throws ResourceAlreadyExistsException {
         var account = accountService.registerAccount(registerDto);
-        var token = tokenService.createToken(account);
-        var cookie = tokenCookie(token);
+        var createdAccount = new ModelMapper().map(account, AccountDto.class);
+
+        return ResponseEntity.ok().body(createdAccount);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, ?>> logoutAccount(
+        HttpServletResponse response) throws ResourceAlreadyExistsException {
+        var cookie = createLogOutCookie();
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }
 
-    private Cookie tokenCookie(String token) {
+    private Cookie createLoginCookie(String token) {
         var cookie = new Cookie("token", token);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
-        cookie.setMaxAge(60*60*3);
+        cookie.setMaxAge(60 * 60 * 3);
+        cookie.setSecure(false); // TODO: Set to true in Production
+        return cookie;
+    }
+
+    private Cookie createLogOutCookie() {
+        var cookie = new Cookie("token", null);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+        cookie.setSecure(false); // TODO: Set to true in Production
         return cookie;
     }
 }
