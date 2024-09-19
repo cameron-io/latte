@@ -32,7 +32,7 @@ public class AccountController {
         this.tokenService = tokenService;
     }
     
-    @PostMapping("/info")
+    @GetMapping("/info")
     public ResponseEntity<Account> getCurrentUser(
         @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
