@@ -17,11 +17,15 @@ import io.netstacker.latte.domain.services.IAccountService;
 @Service
 public class AccountService implements IAccountService {
     private final IAccountRepository accountRepository;
-    private final int encodeStrength = 10;
+    private final BCryptPasswordEncoder encoder;
+    private final ModelMapper mapper;
+    private final int encodeStrength = 14;
 
     @Autowired
     public AccountService(IAccountRepository accountRepository) {
         this.accountRepository = accountRepository;
+        this.encoder = new BCryptPasswordEncoder(encodeStrength);
+        this.mapper = new ModelMapper();
     }
 
     public Account getAccountById(long accountId) throws ResourceNotFoundException {
@@ -32,14 +36,14 @@ public class AccountService implements IAccountService {
     }
 
     public Account loginAccount(@Valid LoginDto loginDto) throws BadRequestException {
-        var account = accountRepository.findAccountByEmail(loginDto.getEmail()).orElse(null);
-        if (account == null) {
-            throw new BadRequestException("Account does not exist with this email.");
-        }
+        var account = accountRepository.findAccountByEmail(loginDto.getEmail())
+            .orElseThrow(() ->
+                new BadRequestException("Account does not exist with this email.")
+            );
 
-        var accountPassword = loginDto.getPassword();
-        var encodedPassword = new BCryptPasswordEncoder(encodeStrength).encode(accountPassword);
-        if(encodedPassword != account.getPassword()) {
+        var encodedPassword = encoder.encode(loginDto.getPassword());
+
+        if(encoder.matches(encodedPassword, account.getPassword())) {
             throw new BadRequestException("Invalid password.");
         }
         return account;
@@ -51,10 +55,10 @@ public class AccountService implements IAccountService {
             throw new ResourceAlreadyExistsException("Account already exists with this email.");
         }
 
-        var newAccount = new ModelMapper().map(registerDto, Account.class);
+        var encodedPassword = encoder.encode(registerDto.getPassword());
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(encodeStrength);
-        newAccount.setPassword(encoder.encode(newAccount.getPassword()));
+        var newAccount = mapper.map(registerDto, Account.class);
+        newAccount.setPassword(encodedPassword);
 
         accountRepository.save(newAccount);
 
