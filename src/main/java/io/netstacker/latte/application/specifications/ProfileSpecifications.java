@@ -11,5 +11,5 @@ public class ProfileSpecifications {
             criteriaBuilder.equal(
                 root.get(Profile_.ACCOUNT),
                 accountId);
-  }
+    }
 }
