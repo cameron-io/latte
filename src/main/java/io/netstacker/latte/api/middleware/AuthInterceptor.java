@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import io.netstacker.latte.application.exceptions.UnauthorizedException;
 import io.netstacker.latte.domain.services.ITokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(
         @NonNull HttpServletRequest request,
         @NonNull HttpServletResponse response,
-        @NonNull Object handler) throws Exception {
+        @NonNull Object handler) throws UnauthorizedException {
         var cookies = request.getCookies();
         if (cookies == null) return true;
         for (Cookie cookie : cookies) {
@@ -33,7 +34,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
-        return false;
+        throw new UnauthorizedException("Access denied.");
     }
 
     @Override
@@ -41,13 +42,12 @@ public class AuthInterceptor implements HandlerInterceptor {
         @NonNull HttpServletRequest request,
         @NonNull HttpServletResponse response,
         @NonNull Object handler, 
-    @Nullable ModelAndView modelAndView) throws Exception {}
+        @Nullable ModelAndView modelAndView) throws Exception {}
 
     @Override
     public void afterCompletion(
         @NonNull HttpServletRequest request,
         @NonNull HttpServletResponse response,
         @NonNull Object handler,
-        @Nullable Exception ex)
-            throws Exception {}
+        @Nullable Exception ex) throws Exception {}
 }
