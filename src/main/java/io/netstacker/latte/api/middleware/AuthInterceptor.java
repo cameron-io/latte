@@ -5,12 +5,12 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import io.netstacker.latte.application.exceptions.UnauthorizedException;
 import io.netstacker.latte.domain.services.ITokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Cookie;
 
 public class AuthInterceptor implements HandlerInterceptor {
     private final ITokenService tokenService;
@@ -25,14 +25,11 @@ public class AuthInterceptor implements HandlerInterceptor {
         @NonNull HttpServletRequest request,
         @NonNull HttpServletResponse response,
         @NonNull Object handler) throws UnauthorizedException {
-        var cookies = request.getCookies();
-        if (cookies == null) return true;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName() == "token") {
-                Long accountId = tokenService.validateToken(cookie.getValue());
-                request.setAttribute("accountId", accountId);
-                return true;
-            }
+        var token = WebUtils.getCookie(request, "token");
+        if (token != null) {
+            Long accountId = tokenService.validateToken(token.getValue());
+            request.setAttribute("accountId", accountId);
+            return true;
         }
         throw new UnauthorizedException("Access denied.");
     }
