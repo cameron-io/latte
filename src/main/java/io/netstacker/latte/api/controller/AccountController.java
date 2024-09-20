@@ -25,11 +25,13 @@ import io.netstacker.latte.domain.services.IAccountService;
 public class AccountController {
     private final IAccountService accountService;
     private final ITokenService tokenService;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public AccountController(IAccountService accountService, ITokenService tokenService) {
         this.accountService = accountService;
         this.tokenService = tokenService;
+        this.modelMapper = new ModelMapper();
     }
     
     @GetMapping("/info")
@@ -55,7 +57,7 @@ public class AccountController {
         @RequestBody RegisterDto registerDto,
         HttpServletResponse response) throws ResourceAlreadyExistsException {
         var account = accountService.registerAccount(registerDto);
-        var createdAccount = new ModelMapper().map(account, AccountDto.class);
+        var createdAccount = modelMapper.map(account, AccountDto.class);
 
         return ResponseEntity.ok().body(createdAccount);
     }
