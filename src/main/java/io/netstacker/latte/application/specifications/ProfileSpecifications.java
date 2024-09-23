@@ -2,14 +2,15 @@ package io.netstacker.latte.application.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import io.netstacker.latte.domain.models.Account;
 import io.netstacker.latte.domain.models.Profile;
 import io.netstacker.latte.domain.models.Profile_;
 
 public class ProfileSpecifications {
-    public static Specification<Profile> ProfileByAccountId(Long accountId) {
-        return (root, query, criteriaBuilder) ->
-            criteriaBuilder.equal(
+    public static Specification<Profile> ProfileByAccountId(Account account) {
+        return (root, query, builder) ->
+            builder.equal(
                 root.get(Profile_.ACCOUNT),
-                accountId);
+                account);
     }
 }

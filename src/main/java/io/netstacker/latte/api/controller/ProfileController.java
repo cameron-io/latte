@@ -41,7 +41,8 @@ public class ProfileController {
     @GetMapping("/me")
     public ResponseEntity<Profile> getMe(
         @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException {
-        var profile = profileService.getProfileByAccountId(accountId);
+        var account = accountService.getAccountById(accountId);
+        var profile = profileService.getProfileByAccount(account);
         return ResponseEntity.ok().body(profile);
     }
 
