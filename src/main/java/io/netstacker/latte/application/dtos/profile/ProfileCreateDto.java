@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ProfileDto {
+public class ProfileCreateDto {
     private Long id;
     @NotBlank private String status;
     @NotNull private List<String> skills;

@@ -12,7 +12,7 @@ public class ExperienceDto {
     @NotBlank public String company;
     @NotBlank public String from;
     public String location;
-    public String to;
-    public boolean current;
-    public String description;
+    public String to = "";
+    public boolean current = true;
+    public String description = "";
 }

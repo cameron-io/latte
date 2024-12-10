@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import io.netstacker.latte.application.dtos.account.AccountDto;
+import io.netstacker.latte.application.dtos.account.UserDto;
 import io.netstacker.latte.application.dtos.account.LoginDto;
 import io.netstacker.latte.application.dtos.account.RegisterDto;
 import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
@@ -53,11 +53,11 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AccountDto> registerAccount(
+    public ResponseEntity<UserDto> registerAccount(
         @RequestBody RegisterDto registerDto,
         HttpServletResponse response) throws ResourceAlreadyExistsException {
         var account = accountService.registerAccount(registerDto);
-        var createdAccount = modelMapper.map(account, AccountDto.class);
+        var createdAccount = modelMapper.map(account, UserDto.class);
 
         return ResponseEntity.ok().body(createdAccount);
     }

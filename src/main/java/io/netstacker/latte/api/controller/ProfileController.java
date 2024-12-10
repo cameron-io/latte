@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import io.netstacker.latte.application.dtos.profile.ProfileDto;
+import io.netstacker.latte.application.dtos.profile.ProfileCreateDto;
+import io.netstacker.latte.application.dtos.profile.ProfileGetDto;
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.application.services.ProfileService;
 import io.netstacker.latte.domain.services.IAccountService;
@@ -26,32 +27,41 @@ public class ProfileController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ProfileDto>> getAllProfiles() {
-        var profiles = profileService.getAllProfiles();
-        return ResponseEntity.ok().body(profiles);
+    public ResponseEntity<List<ProfileGetDto>> getAllProfiles() {
+        var profileDtos = profileService.getAllProfiles();
+        return ResponseEntity.ok().body(profileDtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProfileDto> getProfileById(
+    public ResponseEntity<ProfileGetDto> getProfileById(
         @PathVariable(value = "id") long profileId) throws ResourceNotFoundException {
-        var profile = profileService.getProfileById(profileId);
-        return ResponseEntity.ok().body(profile);
+        var profileDto = profileService.getProfileById(profileId);
+        return ResponseEntity.ok().body(profileDto);
     }
 
     @GetMapping("/me")
-    public ResponseEntity<ProfileDto> getMe(
+    public ResponseEntity<ProfileGetDto> getMe(
         @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
-        var profile = profileService.getProfileByAccount(account);
-        return ResponseEntity.ok().body(profile);
+        var profileDto = profileService.getProfileByAccount(account);
+        return ResponseEntity.ok().body(profileDto);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<ProfileGetDto> getMe(
+        @PathVariable(value = "id") long accountId) throws ResourceNotFoundException {
+        var account = accountService.getAccountById(accountId);
+        var profileDto = profileService.getProfileByAccount(account);
+        return ResponseEntity.ok().body(profileDto);
     }
 
     @PostMapping()
-    public ResponseEntity<ProfileDto> createProfile(
+    @PutMapping()
+    public ResponseEntity<ProfileGetDto> upsertProfile(
         @RequestAttribute("accountId") Long accountId,
-        @RequestBody ProfileDto profileDto) throws ResourceNotFoundException {
+        @RequestBody ProfileCreateDto profileCreateDto) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
-        profileService.createProfile(account, profileDto);
+        var profileDto = profileService.upsertProfile(account, profileCreateDto);
         return ResponseEntity.ok().body(profileDto);
     }
 }

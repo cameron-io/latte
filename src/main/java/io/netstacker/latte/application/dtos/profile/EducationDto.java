@@ -12,7 +12,7 @@ public class EducationDto {
     @NotBlank private String degree;
     @NotBlank private String fieldOfStudy;
     @NotBlank private String from;
-    public String to;
-    public boolean current;
-    public String description;
+    public String to = "";
+    public boolean current = true;
+    public String description = "";
 }
