@@ -12,10 +12,9 @@ import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.Account;
 import io.netstacker.latte.domain.repositories.IAccountRepository;
-import io.netstacker.latte.domain.services.IAccountService;
 
 @Service
-public class AccountService implements IAccountService {
+public class AccountService {
     private final IAccountRepository accountRepository;
     private final BCryptPasswordEncoder encoder;
     private final ModelMapper mapper;

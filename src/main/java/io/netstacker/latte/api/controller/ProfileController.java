@@ -10,18 +10,18 @@ import io.netstacker.latte.application.dtos.profile.ProfileCreateDto;
 import io.netstacker.latte.application.dtos.profile.ProfileGetDto;
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.application.services.ProfileService;
-import io.netstacker.latte.domain.services.IAccountService;
+import io.netstacker.latte.application.services.AccountService;
 
 @RestController
 @RequestMapping("/api/profiles")
 public class ProfileController {
     private final ProfileService profileService;
-    private final IAccountService accountService;
+    private final AccountService accountService;
 
     @Autowired
     public ProfileController(
         ProfileService profileService,
-        IAccountService accountService) {
+        AccountService accountService) {
         this.profileService = profileService;
         this.accountService = accountService;
     }

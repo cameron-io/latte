@@ -7,18 +7,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
-import io.netstacker.latte.domain.services.IBlogService;
-import io.netstacker.latte.domain.services.IAccountService;
+import io.netstacker.latte.application.services.BlogService;
+import io.netstacker.latte.application.services.AccountService;
 import io.netstacker.latte.domain.models.Blog;
 
 @RestController
 @RequestMapping("/api/blogs")
 public class BlogController {
-    private final IAccountService accountService;
-    private final IBlogService blogService;
+    private final AccountService accountService;
+    private final BlogService blogService;
 
     @Autowired
-    public BlogController(IBlogService blogService, IAccountService accountService) {
+    public BlogController(BlogService blogService, AccountService accountService) {
         this.blogService = blogService;
         this.accountService = accountService;
     }

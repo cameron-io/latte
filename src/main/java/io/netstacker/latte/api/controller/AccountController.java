@@ -11,24 +11,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import io.netstacker.latte.application.services.AccountService;
+import io.netstacker.latte.application.services.TokenService;
 import io.netstacker.latte.application.dtos.account.UserDto;
 import io.netstacker.latte.application.dtos.account.LoginDto;
 import io.netstacker.latte.application.dtos.account.RegisterDto;
 import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
-import io.netstacker.latte.domain.services.ITokenService;
 import io.netstacker.latte.domain.models.Account;
-import io.netstacker.latte.domain.services.IAccountService;
 
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
-    private final IAccountService accountService;
-    private final ITokenService tokenService;
+    private final AccountService accountService;
+    private final TokenService tokenService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public AccountController(IAccountService accountService, ITokenService tokenService) {
+    public AccountController(AccountService accountService, TokenService tokenService) {
         this.accountService = accountService;
         this.tokenService = tokenService;
         this.modelMapper = new ModelMapper();

@@ -9,14 +9,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 
 import io.netstacker.latte.domain.models.Account;
-import io.netstacker.latte.domain.services.ITokenService;
 import lombok.Getter;
 
 import java.util.Date;
 import java.util.Map;
 
 @Service
-public class TokenService implements ITokenService {
+public class TokenService {
     @Getter
     private static String jwt_secret;
 

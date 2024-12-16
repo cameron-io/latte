@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.Blog;
 import io.netstacker.latte.domain.repositories.IBlogRepository;
-import io.netstacker.latte.domain.services.IBlogService;
 import jakarta.validation.Valid;
 
 @Service
-public class BlogService implements IBlogService {
+public class BlogService {
     private final IBlogRepository blogRepository;
 
     @Autowired

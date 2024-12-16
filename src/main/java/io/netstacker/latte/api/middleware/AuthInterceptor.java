@@ -8,15 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import io.netstacker.latte.application.exceptions.UnauthorizedException;
-import io.netstacker.latte.domain.services.ITokenService;
+import io.netstacker.latte.application.services.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class AuthInterceptor implements HandlerInterceptor {
-    private final ITokenService tokenService;
+    private final TokenService tokenService;
 
     @Autowired
-    public AuthInterceptor(ITokenService tokenService) {
+    public AuthInterceptor(TokenService tokenService) {
         this.tokenService = tokenService;
     }
 
