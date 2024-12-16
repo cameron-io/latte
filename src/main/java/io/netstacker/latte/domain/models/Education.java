@@ -14,8 +14,8 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "education")
 @Data
+@Table(name = "education")
 public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,8 +13,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "profile")
 public class Profile {
     @Id
@@ -50,104 +52,5 @@ public class Profile {
 
     public Profile(Long id) {
         this.id = id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public void setGithubusername(String githubusername) {
-        this.githubusername = githubusername;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public void setEducation(Education education) {
-        this.education = education;
-    }
-
-    public void setExperience(Experience experience) {
-        this.experience = experience;
-    }
-
-    public void setSocial(Social social) {
-        this.social = social;
-    }
-
-    public Long getId() {
-        return id;
-    }
-    public Account getAccount() {
-        return account;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public Education getEducation() {
-        return education;
-    }
-    
-    public Experience getExperience() {
-        return experience;
-    }
-    
-    public String getGithubusername() {
-        return githubusername;
-    }
-    
-    public String getLocation() {
-        return location;
-    }
-    
-    public List<String> getSkills() {
-        return skills;
-    }
-    
-    public Social getSocial() {
-        return social;
-    }
-    
-    public String getStatus() {
-        return status;
-    }
-    
-    public String getWebsite() {
-        return website;
     }
 }
