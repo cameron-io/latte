@@ -57,7 +57,7 @@ public class ProfileService {
     }
 
     public ProfileGetDto getProfileByAccount(Account account) throws ResourceNotFoundException {
-        var spec = ProfileSpecifications.ProfileByAccountId(account);
+        var spec = ProfileSpecifications.profileByAccountId(account);
         Profile profile = profileRepository.findOne(spec).orElseThrow(() ->
             new ResourceNotFoundException("Profile not found for this account")
         );
