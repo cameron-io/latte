@@ -1,7 +1,7 @@
 package io.netstacker.latte.domain.models;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,41 +11,64 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@Table(name = "profile")
+@Table(name = "PROFILE")
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "profile_id")
+    @Getter @Setter
     private Long id;
+    @Getter @Setter
     private String company;
+    @Getter @Setter
     private String website;
+    @Getter @Setter
     private String location;
+    @Getter @Setter
     private String status;
-    private List<String> skills;
+    @Getter @Setter
+    private Set<String> skills;
+    @Getter @Setter
     private String bio;
+    @Getter @Setter
     private String githubusername;
+    @Getter
     private final Date created_at = new Date(System.currentTimeMillis());
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
+    @Getter @Setter
     private Account account;
 
-    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "experience_id")
-    private Experience experience;
-    
-    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "education_id")
-    private Education education;
-    
-    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "social_id")
+    @OneToMany(
+        mappedBy = "profile",
+        cascade = CascadeType.ALL,
+        fetch = FetchType.EAGER
+    )
+    @Getter @Setter
+    private Set<Experience> experience;
+
+    @OneToMany(
+        mappedBy = "profile",
+        cascade = CascadeType.ALL,
+        fetch = FetchType.EAGER
+    )
+    @Getter @Setter
+    private Set<Education> education;
+
+    @OneToOne(
+        mappedBy = "profile",
+        cascade = CascadeType.ALL,
+        fetch = FetchType.EAGER
+    )
+    @Getter @Setter
     private Social social;
 
     public Profile() {}
