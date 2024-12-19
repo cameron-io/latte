@@ -41,6 +41,14 @@ public class AccountController {
         return ResponseEntity.ok().body(account);
     }
 
+    @DeleteMapping("/")
+    public ResponseEntity<Map<String, ?>> deleteAccount(
+        @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException  {
+        var account = accountService.getAccountById(accountId);
+        accountService.deleteAccount(account);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, ?>> loginAccount(
         @RequestBody LoginDto loginDto,

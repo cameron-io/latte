@@ -34,6 +34,10 @@ public class AccountService {
             );
     }
 
+    public void deleteAccount(Account account) {
+        accountRepository.delete(account);
+    }
+
     public Account loginAccount(@Valid LoginDto loginDto) throws BadRequestException {
         var account = accountRepository.findAccountByEmail(loginDto.getEmail())
             .orElseThrow(() ->
