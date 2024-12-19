@@ -21,7 +21,10 @@ public class Blog {
     @Getter
     private final Date created_at = new Date(System.currentTimeMillis());
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(
+        cascade = CascadeType.ALL,
+        fetch = FetchType.LAZY
+    )
     @JoinColumn(name = "account_id")
     @Getter @Setter
     private Account account;

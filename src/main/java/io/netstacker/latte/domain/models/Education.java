@@ -2,6 +2,7 @@ package io.netstacker.latte.domain.models;
 
 import java.sql.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -37,7 +38,10 @@ public class Education {
     @Getter @Setter
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(
+        cascade = CascadeType.ALL,
+        fetch = FetchType.LAZY
+    )
     @JoinColumn(name = "profile_id")
     @Getter @Setter
     private Profile profile;

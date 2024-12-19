@@ -28,7 +28,7 @@ public class Account {
     @OneToOne(
         mappedBy = "account",
         cascade = CascadeType.ALL,
-        fetch = FetchType.EAGER
+        fetch = FetchType.LAZY
     )
     @JoinColumn(name = "profile_id")
     @Getter @Setter

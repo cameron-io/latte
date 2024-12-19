@@ -1,7 +1,7 @@
 package io.netstacker.latte.domain.models;
 
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,7 +34,7 @@ public class Profile {
     @Getter @Setter
     private String status;
     @Getter @Setter
-    private Set<String> skills;
+    private List<String> skills;
     @Getter @Setter
     private String bio;
     @Getter @Setter
@@ -42,31 +42,31 @@ public class Profile {
     @Getter
     private final Date created_at = new Date(System.currentTimeMillis());
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(
+        fetch = FetchType.LAZY,
+        cascade = CascadeType.ALL
+    )
     @JoinColumn(name = "account_id")
     @Getter @Setter
     private Account account;
 
     @OneToMany(
         mappedBy = "profile",
-        cascade = CascadeType.ALL,
-        fetch = FetchType.EAGER
+        cascade = CascadeType.ALL
     )
     @Getter @Setter
-    private Set<Experience> experience;
+    private List<Experience> experience;
 
     @OneToMany(
         mappedBy = "profile",
-        cascade = CascadeType.ALL,
-        fetch = FetchType.EAGER
+        cascade = CascadeType.ALL
     )
     @Getter @Setter
-    private Set<Education> education;
+    private List<Education> education;
 
     @OneToOne(
         mappedBy = "profile",
-        cascade = CascadeType.ALL,
-        fetch = FetchType.EAGER
+        cascade = CascadeType.ALL
     )
     @Getter @Setter
     private Social social;

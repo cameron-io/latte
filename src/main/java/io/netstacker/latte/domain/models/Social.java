@@ -1,5 +1,6 @@
 package io.netstacker.latte.domain.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,7 +32,10 @@ public class Social {
     @Getter @Setter
     private String instagram;
     
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(
+        cascade = CascadeType.ALL,
+        fetch = FetchType.LAZY
+    )
     @JoinColumn(name = "profile_id")
     @Getter @Setter
     private Profile profile;
