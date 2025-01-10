@@ -7,4 +7,4 @@ import org.springframework.stereotype.Repository;
 import io.netstacker.latte.domain.models.Profile;
 
 @Repository
-public interface IProfileRepository extends JpaRepository<Profile, Long>, JpaSpecificationExecutor<Profile>{}
+public interface ProfileRepository extends JpaRepository<Profile, Long>, JpaSpecificationExecutor<Profile>{}

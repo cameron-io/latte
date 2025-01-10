@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import io.netstacker.latte.domain.models.Blog;
 
 @Repository
-public interface IBlogRepository extends JpaRepository<Blog, Long>{}
+public interface BlogRepository extends JpaRepository<Blog, Long>{}

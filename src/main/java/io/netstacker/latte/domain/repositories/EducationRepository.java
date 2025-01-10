@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import io.netstacker.latte.domain.models.Education;
 
 @Repository
-public interface IEducationRepository extends JpaRepository<Education, Long>{}
+public interface EducationRepository extends JpaRepository<Education, Long>{}

@@ -1,4 +1,4 @@
-package io.netstacker.latte.application.dtos.profile;
+package io.netstacker.latte.api.dtos.profile;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

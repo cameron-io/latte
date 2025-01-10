@@ -1,11 +1,11 @@
-package io.netstacker.latte.application.dtos.profile;
+package io.netstacker.latte.api.dtos.profile;
 
 import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.netstacker.latte.application.dtos.account.UserDto;
+import io.netstacker.latte.api.dtos.account.UserDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

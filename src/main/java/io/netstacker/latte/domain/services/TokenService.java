@@ -1,4 +1,4 @@
-package io.netstacker.latte.application.services;
+package io.netstacker.latte.domain.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

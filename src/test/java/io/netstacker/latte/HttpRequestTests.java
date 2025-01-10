@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
-import io.netstacker.latte.application.dtos.account.RegisterDto;
+import io.netstacker.latte.api.dtos.account.RegisterDto;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class HttpRequestTests {

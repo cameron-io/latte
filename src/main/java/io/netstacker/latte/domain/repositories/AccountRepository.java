@@ -9,7 +9,7 @@ import io.netstacker.latte.domain.models.Account;
 import java.util.Optional;
 
 @Repository
-public interface IAccountRepository extends JpaRepository<Account, Long>{
+public interface AccountRepository extends JpaRepository<Account, Long>{
     @Query("SELECT s FROM Account s WHERE s.email = ?1")
     Optional<Account> findAccountByEmail(String email);
 }

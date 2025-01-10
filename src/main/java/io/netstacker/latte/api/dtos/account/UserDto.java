@@ -1,4 +1,4 @@
-package io.netstacker.latte.application.dtos.account;
+package io.netstacker.latte.api.dtos.account;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

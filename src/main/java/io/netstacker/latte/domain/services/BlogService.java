@@ -1,21 +1,21 @@
-package io.netstacker.latte.application.services;
+package io.netstacker.latte.domain.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
+import io.netstacker.latte.domain.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.Blog;
-import io.netstacker.latte.domain.repositories.IBlogRepository;
+import io.netstacker.latte.domain.repositories.BlogRepository;
 import jakarta.validation.Valid;
 
 @Service
 public class BlogService {
-    private final IBlogRepository blogRepository;
+    private final BlogRepository blogRepository;
 
     @Autowired
-    public BlogService(IBlogRepository blogRepository) {
+    public BlogService(BlogRepository blogRepository) {
         this.blogRepository = blogRepository;
     }
 

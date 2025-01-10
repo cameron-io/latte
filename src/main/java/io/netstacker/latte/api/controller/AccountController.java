@@ -11,13 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import io.netstacker.latte.application.services.AccountService;
-import io.netstacker.latte.application.services.TokenService;
-import io.netstacker.latte.application.dtos.account.UserDto;
-import io.netstacker.latte.application.dtos.account.LoginDto;
-import io.netstacker.latte.application.dtos.account.RegisterDto;
-import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
-import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
+import io.netstacker.latte.domain.services.AccountService;
+import io.netstacker.latte.domain.services.TokenService;
+import io.netstacker.latte.api.dtos.account.LoginDto;
+import io.netstacker.latte.api.dtos.account.RegisterDto;
+import io.netstacker.latte.api.dtos.account.UserDto;
+import io.netstacker.latte.domain.exceptions.ResourceAlreadyExistsException;
+import io.netstacker.latte.domain.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.Account;
 
 @RestController

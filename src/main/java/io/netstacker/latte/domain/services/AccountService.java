@@ -1,4 +1,4 @@
-package io.netstacker.latte.application.services;
+package io.netstacker.latte.domain.services;
 
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import jakarta.validation.Valid;
-import io.netstacker.latte.application.dtos.account.LoginDto;
-import io.netstacker.latte.application.dtos.account.RegisterDto;
-import io.netstacker.latte.application.exceptions.ResourceAlreadyExistsException;
-import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
+import io.netstacker.latte.api.dtos.account.LoginDto;
+import io.netstacker.latte.api.dtos.account.RegisterDto;
+import io.netstacker.latte.domain.exceptions.ResourceAlreadyExistsException;
+import io.netstacker.latte.domain.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.Account;
-import io.netstacker.latte.domain.repositories.IAccountRepository;
+import io.netstacker.latte.domain.repositories.AccountRepository;
 
 @Service
 public class AccountService {
-    private final IAccountRepository accountRepository;
+    private final AccountRepository accountRepository;
     private final BCryptPasswordEncoder encoder;
     private final ModelMapper mapper;
     private final int encodeStrength = 14;
 
     @Autowired
-    public AccountService(IAccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
         this.encoder = new BCryptPasswordEncoder(encodeStrength);
         this.mapper = new ModelMapper();

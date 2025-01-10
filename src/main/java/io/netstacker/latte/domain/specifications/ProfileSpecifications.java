@@ -1,4 +1,4 @@
-package io.netstacker.latte.application.specifications;
+package io.netstacker.latte.domain.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
 

@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import io.netstacker.latte.application.dtos.profile.ExperienceDto;
-import io.netstacker.latte.application.dtos.profile.ProfileDto;
-import io.netstacker.latte.application.exceptions.ResourceNotFoundException;
-import io.netstacker.latte.application.services.ProfileService;
-import io.netstacker.latte.application.services.AccountService;
+import io.netstacker.latte.api.dtos.profile.ExperienceDto;
+import io.netstacker.latte.api.dtos.profile.ProfileDto;
+import io.netstacker.latte.domain.exceptions.ResourceNotFoundException;
+import io.netstacker.latte.domain.services.ProfileService;
+import io.netstacker.latte.domain.services.AccountService;
 
 @RestController
 @RequestMapping("/api/profiles")

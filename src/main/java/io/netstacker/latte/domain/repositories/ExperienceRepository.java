@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import io.netstacker.latte.domain.models.Experience;
 
 @Repository
-public interface IExperienceRepository extends JpaRepository<Experience, Long>{}
+public interface ExperienceRepository extends JpaRepository<Experience, Long>{}

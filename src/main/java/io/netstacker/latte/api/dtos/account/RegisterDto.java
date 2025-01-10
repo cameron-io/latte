@@ -1,4 +1,4 @@
-package io.netstacker.latte.application.dtos.account;
+package io.netstacker.latte.api.dtos.account;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
