@@ -30,9 +30,9 @@ public class ProfileService {
 
     @Autowired
     public ProfileService(
-        ProfileRepository profileRepository,
-        ExperienceRepository experienceRepository,
-        EducationRepository educationRepository) {
+            ProfileRepository profileRepository,
+            ExperienceRepository experienceRepository,
+            EducationRepository educationRepository) {
         this.profileRepository = profileRepository;
         this.experienceRepository = experienceRepository;
         this.educationRepository = educationRepository;
@@ -41,25 +41,22 @@ public class ProfileService {
     public List<ProfileDto> getAllProfiles() {
         var profiles = profileRepository.findAll();
         var profileDtos = profiles
-            .stream()
-            .map((profile) -> modelMapper.map(profile, ProfileDto.class))
-            .collect(Collectors.toList());
+                .stream()
+                .map((profile) -> modelMapper.map(profile, ProfileDto.class))
+                .collect(Collectors.toList());
         return profileDtos;
     }
 
     public ProfileDto getProfileById(long profileId) throws ResourceNotFoundException {
         var profile = profileRepository.findById(profileId)
-            .orElseThrow(() ->
-                new ResourceNotFoundException("Profile not found for this id: " + profileId)
-            );
+                .orElseThrow(() -> new ResourceNotFoundException("Profile not found for this id: " + profileId));
         return modelMapper.map(profile, ProfileDto.class);
     }
 
     public ProfileDto getProfileByAccount(Account account) throws ResourceNotFoundException {
         var spec = ProfileSpecifications.profileByAccountId(account);
-        Profile profile = profileRepository.findOne(spec).orElseThrow(() ->
-            new ResourceNotFoundException("Profile not found for this account")
-        );
+        Profile profile = profileRepository.findOne(spec)
+                .orElseThrow(() -> new ResourceNotFoundException("Profile not found for this account"));
         return modelMapper.map(profile, ProfileDto.class);
     }
 
@@ -70,7 +67,8 @@ public class ProfileService {
         return modelMapper.map(newProfile, ProfileDto.class);
     }
 
-    public ExperienceDto upsertExperience(Account account, @Valid ExperienceDto experienceDto) throws NullPointerException {
+    public ExperienceDto upsertExperience(Account account, @Valid ExperienceDto experienceDto)
+            throws NullPointerException {
         var validatedExperience = modelMapper.map(experienceDto, Experience.class);
         var newExperience = experienceRepository.save(validatedExperience);
         return modelMapper.map(newExperience, ExperienceDto.class);

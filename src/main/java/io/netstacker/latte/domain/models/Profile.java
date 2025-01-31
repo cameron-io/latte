@@ -14,64 +14,40 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "PROFILE")
+@Data
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "profile_id")
-    @Getter @Setter
     private Long id;
-    @Getter @Setter
     private String company;
-    @Getter @Setter
     private String website;
-    @Getter @Setter
     private String location;
-    @Getter @Setter
     private String status;
-    @Getter @Setter
     private List<String> skills;
-    @Getter @Setter
     private String bio;
-    @Getter @Setter
     private String githubusername;
-    @Getter
     private final Date created_at = new Date(System.currentTimeMillis());
 
-    @OneToOne(
-        fetch = FetchType.LAZY,
-        cascade = CascadeType.ALL
-    )
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
-    @Getter @Setter
     private Account account;
 
-    @OneToMany(
-        mappedBy = "profile",
-        cascade = CascadeType.ALL
-    )
-    @Getter @Setter
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
     private List<Experience> experience;
 
-    @OneToMany(
-        mappedBy = "profile",
-        cascade = CascadeType.ALL
-    )
-    @Getter @Setter
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
     private List<Education> education;
 
-    @OneToOne(
-        mappedBy = "profile",
-        cascade = CascadeType.ALL
-    )
-    @Getter @Setter
+    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL)
     private Social social;
 
-    public Profile() {}
+    public Profile() {
+    }
 
     public Profile(Long id) {
         this.id = id;

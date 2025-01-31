@@ -46,12 +46,12 @@ public class TokenService {
                 .withExpiresAt(ExpiryDate)
                 .withPayload(Map.of(
                         "account", Map.of(
-                                "id", account.getId()
-                        )
-                ))
+                                "id", account.getId())))
                 .sign(algorithm);
     }
-    
+
     @Value("${JWT_SECRET}")
-    private void setJwtSecret(String js) { jwt_secret = js; }
+    private void setJwtSecret(String js) {
+        jwt_secret = js;
+    }
 }

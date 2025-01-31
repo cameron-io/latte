@@ -31,15 +31,15 @@ public class BlogController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Blog> getBlogById(
-        @PathVariable(value = "id") long blogId) throws ResourceNotFoundException {
+            @PathVariable(value = "id") long blogId) throws ResourceNotFoundException {
         var blog = blogService.getBlogById(blogId);
         return ResponseEntity.ok().body(blog);
     }
 
     @PostMapping("/")
     public ResponseEntity<Blog> createBlog(
-        @RequestAttribute("accountId") Long accountId,
-        @RequestBody Blog blog) throws ResourceNotFoundException {
+            @RequestAttribute("accountId") Long accountId,
+            @RequestBody Blog blog) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
         blog.setAccount(account);
         blogService.createBlog(blog);
@@ -48,15 +48,15 @@ public class BlogController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Blog> updateBlog(
-        @PathVariable(value = "id") long blogId,
-        @RequestBody Blog blogDetails) throws ResourceNotFoundException {
+            @PathVariable(value = "id") long blogId,
+            @RequestBody Blog blogDetails) throws ResourceNotFoundException {
         var updatedBlog = blogService.updateBlog(blogId, blogDetails);
         return ResponseEntity.ok().body(updatedBlog);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteBlog(
-        @PathVariable(value = "id") long blogId) throws ResourceNotFoundException {
+            @PathVariable(value = "id") long blogId) throws ResourceNotFoundException {
         blogService.deleteBlog(blogId);
         return ResponseEntity.ok().build();
     }

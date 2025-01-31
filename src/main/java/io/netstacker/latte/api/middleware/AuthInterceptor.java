@@ -22,9 +22,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(
-        @NonNull HttpServletRequest request,
-        @NonNull HttpServletResponse response,
-        @NonNull Object handler) throws UnauthorizedException {
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull Object handler) throws UnauthorizedException {
         var token = WebUtils.getCookie(request, "token");
         if (token != null) {
             Long accountId = tokenService.validateToken(token.getValue());
@@ -36,15 +36,17 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(
-        @NonNull HttpServletRequest request,
-        @NonNull HttpServletResponse response,
-        @NonNull Object handler, 
-        @Nullable ModelAndView modelAndView) throws Exception {}
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull Object handler,
+            @Nullable ModelAndView modelAndView) throws Exception {
+    }
 
     @Override
     public void afterCompletion(
-        @NonNull HttpServletRequest request,
-        @NonNull HttpServletResponse response,
-        @NonNull Object handler,
-        @Nullable Exception ex) throws Exception {}
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull Object handler,
+            @Nullable Exception ex) throws Exception {
+    }
 }

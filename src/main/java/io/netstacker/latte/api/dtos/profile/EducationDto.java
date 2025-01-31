@@ -8,10 +8,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EducationDto {
     private Long id;
-    @NotBlank private String school;
-    @NotBlank private String degree;
-    @NotBlank private String fieldOfStudy;
-    @NotBlank private String from;
+    @NotBlank
+    private String school;
+    @NotBlank
+    private String degree;
+    @NotBlank
+    private String fieldOfStudy;
+    @NotBlank
+    private String from;
     public String to = "";
     public boolean current = true;
     public String description = "";

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import io.netstacker.latte.domain.services.AccountService;
+import io.netstacker.latte.domain.services.MailService;
 import io.netstacker.latte.domain.services.TokenService;
 import io.netstacker.latte.api.dtos.account.LoginDto;
 import io.netstacker.latte.api.dtos.account.RegisterDto;
@@ -25,45 +26,60 @@ import io.netstacker.latte.domain.models.Account;
 public class AccountController {
     private final AccountService accountService;
     private final TokenService tokenService;
+    private final MailService mailService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public AccountController(AccountService accountService, TokenService tokenService) {
+    public AccountController(AccountService accountService, TokenService tokenService, MailService mailService) {
         this.accountService = accountService;
         this.tokenService = tokenService;
+        this.mailService = mailService;
         this.modelMapper = new ModelMapper();
     }
-    
+
     @GetMapping("/info")
     public ResponseEntity<Account> getCurrentUser(
-        @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException {
+            @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
         return ResponseEntity.ok().body(account);
     }
 
     @DeleteMapping("/")
     public ResponseEntity<Map<String, ?>> deleteAccount(
-        @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException  {
+            @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
         accountService.deleteAccount(account);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, ?>> loginAccount(
-        @RequestBody LoginDto loginDto,
-        HttpServletResponse response) throws BadRequestException {
-        var account = accountService.loginAccount(loginDto);
-        var token = tokenService.createToken(account);
+    @GetMapping("/login")
+    public ResponseEntity<Map<String, ?>> loginViaToken(
+            @RequestParam("token") String token,
+            HttpServletResponse response) {
         var cookie = createLoginCookie(token);
         response.addCookie(cookie);
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, ?>> loginAccount(
+            @RequestBody LoginDto loginDto) throws BadRequestException {
+        var account = accountService.loginAccount(loginDto);
+        var token = tokenService.createToken(account);
+        String text = String.format("""
+                    <html>
+                        <body>
+                            <a href="http://localhost:5000/api/accounts/login?token=%s">Login Link</a>
+                        </body>
+                    </html>
+                """, token);
+        mailService.send("support@latte.com", "Login", text);
+        return ResponseEntity.ok().body(Map.of("msg", "Check your inbox!"));
+    }
+
     @PostMapping("/register")
     public ResponseEntity<UserDto> registerAccount(
-        @RequestBody RegisterDto registerDto,
-        HttpServletResponse response) throws ResourceAlreadyExistsException {
+            @RequestBody RegisterDto registerDto) throws ResourceAlreadyExistsException {
         var account = accountService.registerAccount(registerDto);
         var createdAccount = modelMapper.map(account, UserDto.class);
 
@@ -72,7 +88,7 @@ public class AccountController {
 
     @PostMapping("/logout")
     public ResponseEntity<Map<String, ?>> logoutAccount(
-        HttpServletResponse response) throws ResourceAlreadyExistsException {
+            HttpServletResponse response) throws ResourceAlreadyExistsException {
         var cookie = createLogOutCookie();
         response.addCookie(cookie);
         return ResponseEntity.ok().build();

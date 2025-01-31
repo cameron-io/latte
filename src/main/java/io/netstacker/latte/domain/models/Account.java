@@ -3,38 +3,27 @@ package io.netstacker.latte.domain.models;
 import java.sql.Date;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "ACCOUNT")
+@Data
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
-    @Getter @Setter
     private Long id;
-    @Getter @Setter
     private String name;
-    @Getter @Setter
     private String email;
-    @Getter @Setter
-    private String password;
-    @Getter @Setter
     private String avatar;
-    @Getter @Setter
     private Date created_at = new Date(System.currentTimeMillis());
-    
-    @OneToOne(
-        mappedBy = "account",
-        cascade = CascadeType.ALL,
-        fetch = FetchType.LAZY
-    )
+
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id")
-    @Getter @Setter
     private Profile profile;
 
-    public Account() {}
+    public Account() {
+    }
 
     public Account(Long id) {
         this.id = id;

@@ -11,10 +11,10 @@ import io.netstacker.latte.api.controller.AccountController;
 @SpringBootTest
 class LatteApplicationTests {
     @Autowired
-	private AccountController accountController;
+    private AccountController accountController;
 
-	@Test
-	void contextLoads() throws Exception {
-		assertNotEquals(null, accountController);
-	}
+    @Test
+    void contextLoads() throws Exception {
+        assertNotEquals(null, accountController);
+    }
 }

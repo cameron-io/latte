@@ -8,8 +8,7 @@ import io.netstacker.latte.domain.models.Profile_;
 
 public class ProfileSpecifications {
     public static Specification<Profile> profileByAccountId(Account account) {
-        return (root, query, builder) ->
-            builder.equal(
+        return (root, query, builder) -> builder.equal(
                 root.get(Profile_.ACCOUNT),
                 account);
     }

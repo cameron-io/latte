@@ -8,9 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserDto {
-    @NotNull private Long id;
-    @NotBlank private String name;
-    @NotBlank private String email;
-    @NotBlank private String token;
+    @NotNull
+    private Long id;
+    @NotBlank
+    private String name;
+    @NotBlank
+    private String email;
+    @NotBlank
+    private String token;
     private String avatar;
 }

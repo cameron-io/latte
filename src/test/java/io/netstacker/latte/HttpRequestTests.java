@@ -13,22 +13,21 @@ import io.netstacker.latte.api.dtos.account.RegisterDto;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class HttpRequestTests {
 
-	@LocalServerPort
-	private int port;
+    @LocalServerPort
+    private int port;
     private String baseUri = "http://localhost:" + port + "/";
 
-	@Autowired
-	private TestRestTemplate restTemplate;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
-	@Test
-	void registerSuccessTest() throws Exception {
+    @Test
+    void registerSuccessTest() throws Exception {
         var payload = new RegisterDto();
         payload.setName("AdminTester");
         payload.setEmail("admin@mail.com");
-        payload.setPassword("Pa$$w0rd!");
         this.restTemplate.postForEntity(
-            baseUri,
-            payload,
-            null);
-	}
+                baseUri,
+                payload,
+                null);
+    }
 }

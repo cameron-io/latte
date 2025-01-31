@@ -20,8 +20,8 @@ public class ProfileController {
 
     @Autowired
     public ProfileController(
-        ProfileService profileService,
-        AccountService accountService) {
+            ProfileService profileService,
+            AccountService accountService) {
         this.profileService = profileService;
         this.accountService = accountService;
     }
@@ -34,16 +34,14 @@ public class ProfileController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProfileDto> getProfileById(
-        @PathVariable(value = "id") long profileId
-    ) throws ResourceNotFoundException {
+            @PathVariable(value = "id") long profileId) throws ResourceNotFoundException {
         var profileDto = profileService.getProfileById(profileId);
         return ResponseEntity.ok().body(profileDto);
     }
 
     @GetMapping("/me")
     public ResponseEntity<ProfileDto> getMe(
-        @RequestAttribute("accountId") Long accountId
-    ) throws ResourceNotFoundException {
+            @RequestAttribute("accountId") Long accountId) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
         var profileDto = profileService.getProfileByAccount(account);
         return ResponseEntity.ok().body(profileDto);
@@ -51,19 +49,16 @@ public class ProfileController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<ProfileDto> getMe(
-        @PathVariable(value = "id") long accountId
-    ) throws ResourceNotFoundException {
+            @PathVariable(value = "id") long accountId) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
         var profileDto = profileService.getProfileByAccount(account);
         return ResponseEntity.ok().body(profileDto);
     }
 
     @PostMapping()
-    @PutMapping()
     public ResponseEntity<ProfileDto> upsertProfile(
-        @RequestAttribute("accountId") Long accountId,
-        @RequestBody ProfileDto profileCreateDto
-    ) throws ResourceNotFoundException {
+            @RequestAttribute("accountId") Long accountId,
+            @RequestBody ProfileDto profileCreateDto) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
         var profileDto = profileService.upsertProfile(account, profileCreateDto);
         return ResponseEntity.ok().body(profileDto);
@@ -71,9 +66,8 @@ public class ProfileController {
 
     @PutMapping("/experience")
     public ResponseEntity<ProfileDto> upsertExperience(
-        @RequestAttribute("accountId") Long accountId,
-        @RequestBody ExperienceDto experienceDto
-    ) throws ResourceNotFoundException {
+            @RequestAttribute("accountId") Long accountId,
+            @RequestBody ExperienceDto experienceDto) throws ResourceNotFoundException {
         var account = accountService.getAccountById(accountId);
         profileService.upsertExperience(account, experienceDto);
         var profileDto = profileService.getProfileByAccount(account);

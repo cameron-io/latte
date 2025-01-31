@@ -15,8 +15,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProfileDto {
     private Long id;
-    @NotBlank private String status;
-    @NotNull private List<String> skills;
+    @NotBlank
+    private String status;
+    @NotNull
+    private List<String> skills;
 
     private String company;
     private String website;
