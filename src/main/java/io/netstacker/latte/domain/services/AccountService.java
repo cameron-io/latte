@@ -28,14 +28,13 @@ public class AccountService {
                 .orElseThrow(() -> new ResourceNotFoundException("Account not found for this id: " + accountId));
     }
 
-    public void deleteAccount(Account account) {
-        accountRepository.delete(account);
+    public Account getAccountByEmail(@Valid LoginDto loginDto) throws BadRequestException {
+        return accountRepository.findAccountByEmail(loginDto.getEmail())
+                .orElseThrow(() -> new BadRequestException("Account does not exist with this email."));
     }
 
-    public Account loginAccount(@Valid LoginDto loginDto) throws BadRequestException {
-        var account = accountRepository.findAccountByEmail(loginDto.getEmail())
-                .orElseThrow(() -> new BadRequestException("Account does not exist with this email."));
-        return account;
+    public void deleteAccount(Account account) {
+        accountRepository.delete(account);
     }
 
     public Account registerAccount(@Valid RegisterDto registerDto) throws ResourceAlreadyExistsException {

@@ -1,16 +1,13 @@
 package io.netstacker.latte.api.controller;
 
 import java.util.Map;
-
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import io.netstacker.latte.domain.services.AccountService;
 import io.netstacker.latte.infra.exceptions.ResourceAlreadyExistsException;
 import io.netstacker.latte.infra.exceptions.ResourceNotFoundException;
@@ -64,7 +61,7 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity<Map<String, ?>> loginAccount(
             @RequestBody LoginDto loginDto) throws BadRequestException {
-        var account = accountService.loginAccount(loginDto);
+        var account = accountService.getAccountByEmail(loginDto);
         var token = tokenService.createToken(account);
         String text = String.format("""
                     <!doctype html>
