@@ -67,12 +67,13 @@ public class AccountController {
         var account = accountService.loginAccount(loginDto);
         var token = tokenService.createToken(account);
         String text = String.format("""
+                    <!doctype html>
                     <html>
                         <body>
-                            <a href="http://localhost:5000/api/accounts/login?token=%s">Login Link</a>
+                            <a href="http://%s:%d/api/accounts/login?token=%s">%s</a>
                         </body>
                     </html>
-                """, token);
+                """, "localhost", 5000, token, "Sign In");
         mailService.send("support@latte.com", "Login", text);
         return ResponseEntity.ok().body(Map.of("msg", "Check your inbox!"));
     }
