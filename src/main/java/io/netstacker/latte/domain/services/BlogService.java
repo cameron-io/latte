@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.netstacker.latte.domain.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.Blog;
 import io.netstacker.latte.domain.repositories.BlogRepository;
+import io.netstacker.latte.infra.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
 
 @Service

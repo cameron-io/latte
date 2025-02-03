@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import io.netstacker.latte.api.middleware.AuthInterceptor;
-import io.netstacker.latte.domain.services.TokenService;
+import io.netstacker.latte.infra.services.TokenService;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

@@ -7,8 +7,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
-import io.netstacker.latte.domain.exceptions.UnauthorizedException;
-import io.netstacker.latte.domain.services.TokenService;
+import io.netstacker.latte.infra.exceptions.UnauthorizedException;
+import io.netstacker.latte.infra.services.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

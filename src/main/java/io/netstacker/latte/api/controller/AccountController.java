@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import io.netstacker.latte.domain.services.AccountService;
-import io.netstacker.latte.domain.services.MailService;
-import io.netstacker.latte.domain.services.TokenService;
+import io.netstacker.latte.infra.exceptions.ResourceAlreadyExistsException;
+import io.netstacker.latte.infra.exceptions.ResourceNotFoundException;
+import io.netstacker.latte.infra.services.MailService;
+import io.netstacker.latte.infra.services.TokenService;
 import io.netstacker.latte.api.dtos.account.LoginDto;
 import io.netstacker.latte.api.dtos.account.RegisterDto;
 import io.netstacker.latte.api.dtos.account.UserDto;
-import io.netstacker.latte.domain.exceptions.ResourceAlreadyExistsException;
-import io.netstacker.latte.domain.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.Account;
 
 @RestController
