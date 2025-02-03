@@ -9,28 +9,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.netstacker.latte.domain.services.AccountService;
-import io.netstacker.latte.infra.exceptions.ResourceAlreadyExistsException;
-import io.netstacker.latte.infra.exceptions.ResourceNotFoundException;
-import io.netstacker.latte.infra.services.MailService;
-import io.netstacker.latte.infra.services.TokenService;
 import io.netstacker.latte.api.dtos.account.LoginDto;
 import io.netstacker.latte.api.dtos.account.RegisterDto;
 import io.netstacker.latte.api.dtos.account.UserDto;
+import io.netstacker.latte.domain.exceptions.ResourceAlreadyExistsException;
+import io.netstacker.latte.domain.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.Account;
 
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
     private final AccountService accountService;
-    private final TokenService tokenService;
-    private final MailService mailService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public AccountController(AccountService accountService, TokenService tokenService, MailService mailService) {
+    public AccountController(AccountService accountService) {
         this.accountService = accountService;
-        this.tokenService = tokenService;
-        this.mailService = mailService;
         this.modelMapper = new ModelMapper();
     }
 
@@ -62,16 +56,10 @@ public class AccountController {
     public ResponseEntity<Map<String, ?>> loginAccount(
             @RequestBody LoginDto loginDto) throws BadRequestException {
         var account = accountService.getAccountByEmail(loginDto);
-        var token = tokenService.createToken(account);
-        String text = String.format("""
-                    <!doctype html>
-                    <html>
-                        <body>
-                            <a href="http://%s:%d/api/accounts/login?token=%s">%s</a>
-                        </body>
-                    </html>
-                """, "localhost", 5000, token, "Sign In");
-        mailService.send("support@latte.com", "Login", text);
+        var token = accountService.createAuthToken(account);
+        var result = accountService.sendAuthToken("support@latte.com", token);
+        if (result == 1)
+            return ResponseEntity.internalServerError().body(Map.of("msg", "Failed to send login link."));
         return ResponseEntity.ok().body(Map.of("msg", "Check your inbox!"));
     }
 

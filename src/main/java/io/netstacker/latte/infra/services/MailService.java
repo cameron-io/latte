@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MailService {
-    public void send(String to, String subject, String text) {
+    public int send(String to, String subject, String text) {
         // Set up the SMTP server.
         java.util.Properties props = new java.util.Properties();
         props.put("mail.smtp.host", "sandbox.smtp.mailtrap.io"); // SMTP Host
@@ -29,7 +29,7 @@ public class MailService {
         };
         Session session = Session.getInstance(props, auth);
 
-        sendEmail(session, to, subject, text);
+        return sendEmail(session, to, subject, text);
     }
 
     /**
@@ -40,7 +40,7 @@ public class MailService {
      * @param subject
      * @param body
      */
-    private static void sendEmail(Session session, String toEmail, String subject, String body) {
+    private static int sendEmail(Session session, String toEmail, String subject, String body) {
         try {
             MimeMessage msg = new MimeMessage(session);
             // set message headers
@@ -57,8 +57,12 @@ public class MailService {
 
             System.out.println("Message is ready");
             Transport.send(msg);
+
+            return 0;
         } catch (Exception e) {
             e.printStackTrace();
+
+            return 1;
         }
     }
 }

@@ -11,7 +11,7 @@ import io.netstacker.latte.api.dtos.profile.EducationDto;
 import io.netstacker.latte.api.dtos.profile.ExperienceDto;
 import io.netstacker.latte.api.dtos.profile.ProfileDto;
 import io.netstacker.latte.domain.specifications.ProfileSpecifications;
-import io.netstacker.latte.infra.exceptions.ResourceNotFoundException;
+import io.netstacker.latte.domain.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.models.Account;
 import io.netstacker.latte.domain.models.Education;
 import io.netstacker.latte.domain.models.Experience;

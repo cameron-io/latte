@@ -17,10 +17,10 @@ import java.util.Map;
 @Service
 public class TokenService {
     @Getter
-    private static String jwt_secret;
+    private static String jwtSecret;
 
     public Long validateToken(String token) {
-        Algorithm algorithm = Algorithm.HMAC256(jwt_secret);
+        Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
         JWTVerifier verifier = JWT
                 .require(algorithm)
                 // reusable verifier instance
@@ -39,7 +39,7 @@ public class TokenService {
     }
 
     public String createToken(Account account) {
-        Algorithm algorithm = Algorithm.HMAC256(jwt_secret);
+        Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
 
         Date ExpiryDate = new Date(System.currentTimeMillis() + 3600000);
         return JWT.create()
@@ -52,6 +52,6 @@ public class TokenService {
 
     @Value("${JWT_SECRET}")
     private void setJwtSecret(String js) {
-        jwt_secret = js;
+        jwtSecret = js;
     }
 }

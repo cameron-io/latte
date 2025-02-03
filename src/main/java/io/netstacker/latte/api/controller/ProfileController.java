@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import io.netstacker.latte.api.dtos.profile.ExperienceDto;
 import io.netstacker.latte.api.dtos.profile.ProfileDto;
 import io.netstacker.latte.domain.services.ProfileService;
-import io.netstacker.latte.infra.exceptions.ResourceNotFoundException;
+import io.netstacker.latte.domain.exceptions.ResourceNotFoundException;
 import io.netstacker.latte.domain.services.AccountService;
 
 @RestController
